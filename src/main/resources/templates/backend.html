@@ -1,0 +1,113 @@
+<!DOCTYPE html>
+<html lang="zh-CN"
+      xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>棉屋商品管理-后台管理页</title>
+    <!-- Bootstrap v3.3.5 -->
+    <link th:href="@{/css/font-awesome.css}" href="../static/css/font-awesome.min.css" rel="stylesheet">
+    <link th:href="@{/bootstrap/css/bootstrap.min.css}" href="../static/bootstrap/css/bootstrap.min.css"
+          rel="stylesheet">
+    <link th:href="@{/css/templatemo-style.css}" href="../static/css/templatemo-style.css" rel="stylesheet">
+    <link th:href="@{/css/toastr.min.css}" href="../static/css/toastr.min.css" rel="stylesheet">
+    <link th:href="@{/favicon/favicon.ico}" href="../static/favicon/favicon.ico" rel="shortcut icon"/>
+</head>
+<body>
+<div class="templatemo-flex-row">
+    <div class="templatemo-sidebar">
+        <header class="templatemo-site-header">
+            <div class="square"></div>
+            <h1>棉屋商品管理</h1>
+        </header>
+        <div class="profile-photo-container">
+            <img th:src="@{/images/profile-photo.jpg}" src="../static/images/profile-photo.jpg" alt="profile-photo"
+                 class="img-responsive"/>
+            <div class="profile-photo-overlay"></div>
+        </div>
+
+        <nav class="templatemo-left-nav">
+            <ul th:each="menu,menuStat:${session.menus}">
+                <li>
+                    <a th:classappend="${menuStat.index==3}?'active':''" th:href="${menu.href}"><i
+                            th:class="${menu.icons}"></i>
+                        <th:block th:text="${menu.menuName}"></th:block>
+                    </a>
+                </li>
+            </ul>
+        </nav>
+    </div>
+    <div class="templatemo-content col-1 light-gray-bg">
+        <div class="templatemo-content-container">
+            <div class="templatemo-content-widget white-bg">
+                <div class="row">
+                    <button class="templatemo-blue-button" data-toggle="modal" data-target="#add-category-frame">添加分类
+                    </button>
+                    <button class="templatemo-blue-button">添加商品</button>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="modal fade" id="add-category-frame" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span>
+                </button>
+                <h4 class="modal-title" id="myModalLabel">添加商品大类</h4>
+            </div>
+            <div class="modal-body">
+                <form id="addSort" class="form-horizontal" method="post" action="/cotton/sort/add.do">
+                    <div class="form-group">
+                        <label for="add_sortName" class="col-sm-2 control-label">分类名称</label>
+                        <div class="col-sm-5">
+                            <input type="text" name="firstCategoryName" class="form-control" id="add_sortName"
+                                   placeholder="分类名称...">
+                        </div>
+                    </div>
+                </form>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-default" data-dismiss="modal">关闭</button>
+                <button id="submitSortForm" type="button" class="btn btn-primary">保存</button>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="modal fade" id="add-goods-frame" tabindex="-1" role="dialog" aria-labelledby="goodsLabel">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span>
+                </button>
+                <h4 class="modal-title" id="goodsLabel">添加商品</h4>
+            </div>
+            <div class="modal-body">
+                <form id="add-goods" class="form-horizontal" method="post" action="/cotton/sort/add.do">
+                    <div class="form-group">
+                        <label for="add_sortName" class="col-sm-2 control-label">分类名称</label>
+                        <div class="col-sm-5">
+                            <input type="text" name="firstCategoryName" class="form-control" id=""
+                                   placeholder="分类名称...">
+                        </div>
+                    </div>
+                </form>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-default" data-dismiss="modal">关闭</button>
+                <button id="" type="button" class="btn btn-primary">保存</button>
+            </div>
+        </div>
+    </div>
+</div>
+<script th:src="@{/bootstrap/js/jquery.min.js}" src="../static/bootstrap/js/jquery.min.js"></script>
+<script th:src="@{/bootstrap/js/bootstrap.js}" src="../static/bootstrap/js/bootstrap.js"></script>
+<script th:src="@{/js/templatemo-script.js}" src="../static/js/templatemo-script.js"></script>
+<script th:src="@{/js/util.js}" src="../static/js/util.js"></script>
+<script th:src="@{/js/toastr.min.js}" src="../static/js/toastr.min.js"></script>
+<script th:src="@{/js/backend.js}" src="../static/js/backend.js"></script>
+</body>
+</html>

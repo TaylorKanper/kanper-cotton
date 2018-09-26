@@ -1,0 +1,111 @@
+<!DOCTYPE html>
+<html lang="zh-CN"
+      xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>棉屋商品管理-首页</title>
+    <!-- Bootstrap v3.3.5 -->
+    <link th:href="@{/css/font-awesome.css}" href="../static/css/font-awesome.min.css" rel="stylesheet">
+    <link th:href="@{/bootstrap/css/bootstrap.min.css}" href="../static/bootstrap/css/bootstrap.min.css"
+          rel="stylesheet">
+    <link th:href="@{/css/templatemo-style.css}" href="../static/css/templatemo-style.css" rel="stylesheet">
+    <link th:href="@{/favicon/favicon.ico}" href="../static/favicon/favicon.ico" rel="shortcut icon"/>
+</head>
+<body>
+<div class="templatemo-flex-row">
+    <div class="templatemo-sidebar">
+        <header class="templatemo-site-header">
+            <div class="square"></div>
+            <h1>棉屋商品管理</h1>
+        </header>
+        <div class="profile-photo-container">
+            <img th:src="@{/images/profile-photo.jpg}" src="../static/images/profile-photo.jpg" alt="profile-photo"
+                 class="img-responsive"/>
+            <div class="profile-photo-overlay"></div>
+        </div>
+
+        <nav class="templatemo-left-nav">
+            <ul th:each="menu,menuStat:${session.menus}">
+                <li>
+                    <a th:classappend="${menuStat.first}?'active':''" th:href="${menu.href}"><i
+                            th:class="${menu.icons}"></i>
+                        <th:block th:text="${menu.menuName}"></th:block>
+                    </a>
+                </li>
+            </ul>
+        </nav>
+    </div>
+    <!-- Left Column End-->
+    <!-- Main content Start-->
+    <div class="templatemo-content col-1 light-gray-bg">
+        <div class="templatemo-content-container">
+            <div class="templatemo-flex-row flex-content-row">
+                <div class="templatemo-content-widget white-bg col-2">
+                    <i class="fa fa-times"></i>
+                    <div class="square"></div>
+                    <h2 class="templatemo-inline-block">虞美人</h2>
+                    <hr>
+                    <p class="text-justify" style="font-size: 18px;">
+                        春花秋月何时了？往事知多少。<br>
+                        小楼昨夜又东风，故国不堪回首月明中。<br>
+                        雕栏玉砌应犹在，只是朱颜改。<br>
+                        问君能有几多愁？恰似一江春水向东流。<br>
+                    </p>
+                </div>
+                <div class="templatemo-content-widget white-bg col-1 text-center">
+                    <i class="fa fa-times"></i>
+                    <h2 class="text-uppercase">欢迎你，<span th:text="${session.user.nickName}">管理员</span></h2>
+                    <h3 class="text-uppercase margin-bottom-10"></h3>
+                    <img src="../static/images/sunset-big.jpg" th:src="@{/images/sunset-big.jpg}" alt="Bicycle"
+                         class="img-circle img-thumbnail">
+                </div>
+                <div class="templatemo-content-widget white-bg col-1">
+                    <i class="fa fa-times"></i>
+                    <h2 class="text-uppercase">今日销售额</h2>
+                    <h3 class="text-uppercase text-danger margin-10">1000元</h3>
+                    <hr>
+                    <img alt="sunset" src="../static/images/wuzhen-night.jpg" th:src="@{/images/wuzhen-night.jpg}"
+                         class="img-thumbnail">
+                </div>
+            </div>
+            <div class="templatemo-flex-row flex-content-row">
+                <div class="col-1">
+                    <div class="panel panel-default templatemo-content-widget white-bg no-padding templatemo-overflow-hidden">
+                        <i class="fa fa-times"></i>
+                        <div class="panel-heading templatemo-position-relative"><h2 class="text-uppercase">今日销售表</h2>
+                        </div>
+                        <div class="table-responsive">
+                            <table class="table table-striped table-bordered">
+                                <thead>
+                                <tr>
+                                    <th>No.</th>
+                                    <th>商品</th>
+                                    <th>分类</th>
+                                    <th>数量</th>
+                                    <th>单价</th>
+                                    <th>成交单价</th>
+                                    <th>折扣</th>
+                                    <th>会员名</th>
+                                    <th>购买时间</th>
+                                </tr>
+                                </thead>
+                                <tbody>
+
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<script th:src="@{/bootstrap/js/jquery.min.js}" src="../static/bootstrap/js/jquery.min.js"></script>
+<script th:src="@{/bootstrap/js/bootstrap.js}" src="../static/bootstrap/js/bootstrap.js"></script>
+<script th:src="@{/js/templatemo-script.js}" src="../static/js/templatemo-script.js"></script>
+
+</body>
+</html>

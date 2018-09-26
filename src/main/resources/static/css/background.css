@@ -1,0 +1,11 @@
+@charset "utf-8";
+/* CSS Document */
+
+.success {
+    font-size: 20px;
+    color: green;
+}
+
+.fail {
+    color: red;
+}

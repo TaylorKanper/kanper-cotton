@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html lang="zh-CN"
+      xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>棉屋商品管理-销售页</title>
+    <!-- Bootstrap v3.3.5 -->
+    <link th:href="@{/css/font-awesome.css}" href="../static/css/font-awesome.min.css" rel="stylesheet">
+    <link th:href="@{/bootstrap/css/bootstrap.min.css}" href="../static/bootstrap/css/bootstrap.min.css"
+          rel="stylesheet">
+    <link th:href="@{/css/templatemo-style.css}" href="../static/css/templatemo-style.css" rel="stylesheet">
+    <link th:href="@{/favicon/favicon.ico}" href="../static/favicon/favicon.ico" rel="shortcut icon"/>
+</head>
+<body>
+<div class="templatemo-flex-row">
+    <div class="templatemo-sidebar">
+        <header class="templatemo-site-header">
+            <div class="square"></div>
+            <h1>棉屋商品管理</h1>
+        </header>
+        <div class="profile-photo-container">
+            <img th:src="@{/images/profile-photo.jpg}" src="../static/images/profile-photo.jpg" alt="profile-photo"
+                 class="img-responsive"/>
+            <div class="profile-photo-overlay"></div>
+        </div>
+
+        <nav class="templatemo-left-nav">
+            <ul th:each="menu,menuStat:${session.menus}">
+                <li>
+                    <a th:classappend="${menuStat.index==1}?'active':''" th:href="${menu.href}"><i
+                            th:class="${menu.icons}"></i>
+                        <th:block th:text="${menu.menuName}"></th:block>
+                    </a>
+                </li>
+            </ul>
+        </nav>
+    </div>
+    <div class="templatemo-content col-1 light-gray-bg">
+        <div class="templatemo-content-container">
+            <div class="templatemo-content-widget white-bg">
+                <h2 class="margin-bottom-10">查询条件</h2>
+                <div class="row form-group">
+                    <div class="col-lg-6 col-md-6 form-group">
+                        <label class="">分类</label>
+                        <select name="">
+                            <option>衣服</option>
+                        </select>
+                    </div>
+                    <div class="col-lg-6 col-md-6 form-group">
+                        <select name="">
+                            <option>衣服</option>
+                        </select>
+                    </div>
+                    <div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <script th:src="@{/bootstrap/js/jquery.min.js}" src="../static/bootstrap/js/jquery.min.js"></script>
+    <script th:src="@{/bootstrap/js/bootstrap.js}" src="../static/bootstrap/js/bootstrap.js"></script>
+    <script th:src="@{/js/templatemo-script.js}" src="../static/js/templatemo-script.js"></script>
+</body>
+</html>

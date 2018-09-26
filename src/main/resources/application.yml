@@ -1,0 +1,51 @@
+spring:
+  application:
+    name: kanper-cotton
+  thymeleaf:
+    cache: false
+    mode: HTML
+    prefix: classpath:/templates/
+    suffix: .html
+  datasource:
+    # 这里写的是后面的数据源的默认配置
+    url: jdbc:mysql://localhost:3306/cotton_new_kanper?useUnicode=true&characterEncoding=UTF-8&useSSL=true
+    driver-class-name: com.mysql.jdbc.Driver
+    username: root
+    password: 123456
+    # 使用druid数据源,后面2个数据源会自动继承这里配置的属性
+    type: com.alibaba.druid.pool.DruidDataSource
+    # 配置初始化大小、最小、最大
+    initial-size: 5
+    max-active: 15
+    min-idle: 5
+    # 配置获取连接等待超时的时间
+    max-wait: 60000
+    validationQuery: select 1
+    test-on-borrow: true
+  redis:
+    # redis 缓存时间（秒）
+    cache-time: 600
+    host: 127.0.0.1
+    port: 6379
+    password: 123456
+    pool:
+      max-active: 8
+      max-wait: -1
+      max-idle: 8
+      min-idle: 0
+    timeout: 0
+    database: 0
+  jpa:
+    database: mysql
+    hibernate:
+      ddl-auto: update
+    show-sql: true
+# LOGGING
+logging:
+    config: classpath:logback-spring.xml
+    #file: ${spring.application.name}.log
+    path: logs/${spring.application.name}
+server:
+  port: 8001
+  session:
+    timeout: -1
