@@ -3,7 +3,7 @@ package com.kanper.config;
 import com.fasterxml.jackson.annotation.JsonAutoDetect;
 import com.fasterxml.jackson.annotation.PropertyAccessor;
 import com.fasterxml.jackson.databind.ObjectMapper;
-import org.springframework.beans.factory.annotation.Value;
+import com.fasterxml.jackson.datatype.hibernate5.Hibernate5Module;
 import org.springframework.cache.CacheManager;
 import org.springframework.cache.annotation.CachingConfigurerSupport;
 import org.springframework.cache.annotation.EnableCaching;
@@ -26,13 +26,13 @@ import java.lang.reflect.Method;
 public class RedisConfig extends CachingConfigurerSupport {
 
     /**
-     * 配置在yml中的redis缓存时间
+     * 配置redis缓存时间
      */
-    @Value("${spring.redis.cache-time}")
-    private Integer redisCacheExpireTime;
+    private static final Integer redisCacheExpireTime = 600;
 
     /**
      * key的生成策略
+     *
      * @return
      */
     @Override
@@ -77,6 +77,7 @@ public class RedisConfig extends CachingConfigurerSupport {
         ObjectMapper om = new ObjectMapper();
         om.setVisibility(PropertyAccessor.ALL, JsonAutoDetect.Visibility.ANY);
         om.enableDefaultTyping(ObjectMapper.DefaultTyping.NON_FINAL);
+        om.registerModule(new Hibernate5Module());
         jackson2JsonRedisSerializer.setObjectMapper(om);
         template.setValueSerializer(jackson2JsonRedisSerializer);
         template.afterPropertiesSet();

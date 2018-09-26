@@ -14,6 +14,8 @@
     <link th:href="@{/css/templatemo-style.css}" href="../static/css/templatemo-style.css" rel="stylesheet">
     <link th:href="@{/css/toastr.min.css}" href="../static/css/toastr.min.css" rel="stylesheet">
     <link th:href="@{/favicon/favicon.ico}" href="../static/favicon/favicon.ico" rel="shortcut icon"/>
+    <link th:href="@{/bootstrapvali/css/bootstrapValidator.min.css}"
+          href="../static/bootstrapvali/css/bootstrapValidator.min.css"/>
 </head>
 <body>
 <div class="templatemo-flex-row">
@@ -53,14 +55,16 @@
 </div>
 <div class="modal fade" id="add-category-frame" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
     <div class="modal-dialog" role="document">
-        <div class="modal-content">
-            <div class="modal-header">
-                <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span>
-                </button>
-                <h4 class="modal-title" id="myModalLabel">添加商品大类</h4>
-            </div>
-            <div class="modal-body">
-                <form id="addSort" class="form-horizontal" method="post" action="/cotton/sort/add.do">
+        <form id="addSort" class="form-horizontal" method="post" action="/cotton/sort/add.do">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span
+                            aria-hidden="true">&times;</span>
+                    </button>
+                    <h4 class="modal-title" id="myModalLabel">添加商品大类</h4>
+                </div>
+
+                <div class="modal-body">
                     <div class="form-group">
                         <label for="add_sortName" class="col-sm-2 control-label">分类名称</label>
                         <div class="col-sm-5">
@@ -68,16 +72,16 @@
                                    placeholder="分类名称...">
                         </div>
                     </div>
-                </form>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-default" data-dismiss="modal">关闭</button>
+                    <button id="submitSortForm" type="submit" class="btn btn-primary">保存</button>
+                </div>
             </div>
-            <div class="modal-footer">
-                <button type="button" class="btn btn-default" data-dismiss="modal">关闭</button>
-                <button id="submitSortForm" type="button" class="btn btn-primary">保存</button>
-            </div>
-        </div>
+        </form>
     </div>
 </div>
-<div class="modal fade" id="add-goods-frame" tabindex="-1" role="dialog" aria-labelledby="goodsLabel">
+<!--<div class="modal fade" id="add-goods-frame" tabindex="-1" role="dialog" aria-labelledby="goodsLabel">
     <div class="modal-dialog" role="document">
         <div class="modal-content">
             <div class="modal-header">
@@ -102,12 +106,15 @@
             </div>
         </div>
     </div>
-</div>
+</div>-->
 <script th:src="@{/bootstrap/js/jquery.min.js}" src="../static/bootstrap/js/jquery.min.js"></script>
 <script th:src="@{/bootstrap/js/bootstrap.js}" src="../static/bootstrap/js/bootstrap.js"></script>
 <script th:src="@{/js/templatemo-script.js}" src="../static/js/templatemo-script.js"></script>
 <script th:src="@{/js/util.js}" src="../static/js/util.js"></script>
 <script th:src="@{/js/toastr.min.js}" src="../static/js/toastr.min.js"></script>
 <script th:src="@{/js/backend.js}" src="../static/js/backend.js"></script>
+<script th:src="@{/bootstrapvali/js/bootstrapValidator.min.js}"
+        src="../static/bootstrapvali/js/bootstrapValidator.min.js"></script>
+<script th:src="@{/bootstrapvali/js/language/zh_CN.js}" src="../static/bootstrapvali/js/language/zh_CN.js"></script>
 </body>
 </html>

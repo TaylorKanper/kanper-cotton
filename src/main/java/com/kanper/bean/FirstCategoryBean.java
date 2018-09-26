@@ -15,6 +15,7 @@ public class FirstCategoryBean {
     /**
      * 商品大类名称
      */
+    @Column(nullable=false ,unique=true)
     private String firstCategoryName;
     /**
      * 商品小类（商品具体名称）

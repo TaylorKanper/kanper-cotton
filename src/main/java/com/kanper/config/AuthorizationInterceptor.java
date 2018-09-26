@@ -18,6 +18,9 @@ public class AuthorizationInterceptor extends HandlerInterceptorAdapter {
         if (!(handler instanceof HandlerMethod)) {
             return true;
         }
+        if (((HandlerMethod) handler).getBeanType().getPackage().getName().equals("com.kanper.controller")) {
+            return true;
+        }
         UserBean userBean = (UserBean) request.getSession().getAttribute("user");
         if (userBean == null) {
             response.sendRedirect("/user/login");
