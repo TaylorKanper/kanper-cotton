@@ -43,6 +43,22 @@ let backendFn = function () {
                         }
                     });
                 });
+            $('#add-goods-frame').on('show.bs.modal', function () {
+                console.log("打开了模态框")
+            });
+            $('#all-category-frame').on('show.bs.modal', function () {
+                $('#all-category-table').bootstrapTable({
+                    classes:"table table-hover table-striped table-bordered templatemo-user-table",
+                    columns: [{
+                        field: 'id',
+                        title: '分类ID'
+                    }, {
+                        field: 'firstCategoryName',
+                        title: '分类名称'
+                    }],
+                    url:'/firstCategory/getAllCategory'
+                });
+            });
         }
     }
 };

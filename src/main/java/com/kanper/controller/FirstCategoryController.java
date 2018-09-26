@@ -26,7 +26,7 @@ public class FirstCategoryController {
         return ActionResult.fail("添加失败，数据库已经存在该记录");
     }
 
-    @GetMapping
+    @GetMapping("/getAllCategory")
     public List<FirstCategoryBean> getAllCategory() {
         return firstCategoryService.allCategory();
     }
