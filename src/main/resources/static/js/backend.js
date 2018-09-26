@@ -44,11 +44,20 @@ let backendFn = function () {
                     });
                 });
             $('#add-goods-frame').on('show.bs.modal', function () {
-                console.log("打开了模态框")
+                $.ajax({
+                    url: '/firstCategory/getAllCategory',
+                    success: function (data) {
+                        let options='';
+                        for (const datum of data) {
+                            options += '<option value=\'' + datum.id + '\'>' + datum.firstCategoryName + '</option>';
+                        }
+                        $('#category-select').html(options).selectpicker('refresh');
+                    }
+                })
             });
             $('#all-category-frame').on('show.bs.modal', function () {
                 $('#all-category-table').bootstrapTable({
-                    classes:"table table-hover table-striped table-bordered templatemo-user-table",
+                    classes: "table table-hover table-striped table-bordered templatemo-user-table",
                     columns: [{
                         field: 'id',
                         title: '分类ID'
@@ -56,7 +65,7 @@ let backendFn = function () {
                         field: 'firstCategoryName',
                         title: '分类名称'
                     }],
-                    url:'/firstCategory/getAllCategory'
+                    url: '/firstCategory/getAllCategory'
                 });
             });
         }

@@ -7,6 +7,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.cache.annotation.CacheConfig;
 import org.springframework.cache.annotation.CacheEvict;
 import org.springframework.cache.annotation.Cacheable;
+import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -20,7 +21,8 @@ public class FirstCategoryServiceImpl implements IFirstCategoryService {
     @Cacheable
     @Override
     public List<FirstCategoryBean> allCategory() {
-        return firstCategoryRepository.findAll();
+        Sort sort = new Sort(Sort.Direction.ASC, "id");
+        return firstCategoryRepository.findAll(sort);
     }
 
     @CacheEvict(allEntries = true)
