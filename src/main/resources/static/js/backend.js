@@ -23,7 +23,10 @@ let backendFn = function () {
                     },
                     phone: {
                         validators: {
-                            notEmpty: {}
+                            notEmpty: {},
+                            phone: {
+                                country: 'CN'
+                            }
                         }
                     }
                 }
@@ -39,7 +42,7 @@ let backendFn = function () {
                     success: function (data) {
                         $('#add-supplier-frame').modal('hide');
                         $('#add-supplier').bootstrapValidator('resetForm', true);
-                        toastr.success('添加供应商' + data.data.secondCategoryName + '成功');
+                        toastr.success('添加供应商' + data.data.supplierName + '成功');
                     },
                     error: function (e) {
                         toastr.error(e.responseJSON.msg);
@@ -168,13 +171,13 @@ let backendFn = function () {
                     classes: "table table-hover table-striped table-bordered templatemo-user-table",
                     columns: [{
                         field: 'id',
-                        title: '商品ID'
+                        title: '供应商ID'
                     }, {
-                        field: 'secondCategoryName',
-                        title: '商品名称'
+                        field: 'supplierName',
+                        title: '供应商名称'
                     }, {
-                        field: 'firstCategory.firstCategoryName',
-                        title: '分类名称'
+                        field: 'phone',
+                        title: '供应商电话'
                     }],
                     pagination: true,
                     cache: false,
