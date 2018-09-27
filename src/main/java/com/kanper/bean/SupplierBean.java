@@ -22,6 +22,7 @@ public class SupplierBean {
     /**
      * 供应商名称
      */
+    @Column(nullable = false, unique = true)
     private String supplierName;
     /**
      * 供应商发生的交易额

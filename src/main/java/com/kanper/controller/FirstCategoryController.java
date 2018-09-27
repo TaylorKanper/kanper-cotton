@@ -23,7 +23,7 @@ public class FirstCategoryController {
         if (firstCategoryBean1 != null) {
             return ActionResult.success("成功", firstCategoryBean1);
         }
-        return ActionResult.fail("添加失败，数据库已经存在该记录");
+        return ActionResult.fail("添加失败");
     }
 
     @GetMapping("/getAllCategory")

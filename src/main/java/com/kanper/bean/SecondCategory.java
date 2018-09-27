@@ -15,6 +15,7 @@ public class SecondCategory {
     /**
      * 二级类目名称
      */
+    @Column(nullable=false ,unique=true)
     private String secondCategoryName;
     /**
      * 二级类目归属的一级类目

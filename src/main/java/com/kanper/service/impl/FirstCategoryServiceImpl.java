@@ -9,11 +9,13 @@ import org.springframework.cache.annotation.CacheEvict;
 import org.springframework.cache.annotation.Cacheable;
 import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
 
 @Service
 @CacheConfig(cacheNames = "firstCategory")
+@Transactional
 public class FirstCategoryServiceImpl implements IFirstCategoryService {
     @Autowired
     private IFirstCategoryRepository firstCategoryRepository;
