@@ -8,6 +8,41 @@ let backendFn = function () {
 
         },
         initEvent: function () {
+            $('#add-product-row').on('click', function () {
+                let $row = $('#add-product-batch tr').last();
+                let $supplier = $row.find('select.supplier');
+                let $good = $row.find('select.secondCategory').eq(0);
+                let $tr = "<tr class='product-add-row'>";
+                $tr += "<td class=\"col-xs-1\"><select name=\"supplier.id\"  class=\"form-control supplier\" data-live-search=\"true\" data-size=\"5\">" + $supplier.html() + "</select></td><td class=\"col-xs-1\"><select name=\"secondCategory.id\" class=\"form-control secondCategory\" data-live-search=\"true\" data-size=\"5\">" + $good.html() + "</select></td><td class=\"col-xs-1\"><input name=\"buyPrice\" type=\"number\" class=\"form-control input-sm\"></td><td class=\"col-xs-1\"><input name=\"soldPrice\" type=\"number\" class=\"form-control input-sm\"></td><td class=\"col-xs-1\"><input name=\"number\" type=\"number\" class=\"form-control input-sm\" value=\"1\"></td></tr>";
+                $('#add-product-batch').append($tr);
+                $('#add-product-batch tr').last().find('select').selectpicker('refresh');
+
+            });
+            $('#add-product-form').bootstrapValidator().on('success.form.bv', function (e) {
+                // Prevent form submission
+                e.preventDefault();
+                // Get the form instance
+                let form = utils.serializeTable($('#add-product-batch'));
+                console.log(form);
+                $.ajax({
+                    url: '/goods/batchAdd',
+                    data: JSON.stringify(form),
+                    dataType: "json",
+                    contentType: 'application/json',
+                    method: 'post',
+                    success: function (data) {
+                        $('#add-product-frame').modal('hide');
+                        $('#add-product-form')[0].reset();
+                        if (data.code == 0) {
+                            toastr.success(data.msg);
+                            $('#add-product-batch tr').remove('.product-add-row');
+                        }
+                    },
+                    error: function (e) {
+                        toastr.error(e.responseJSON.msg);
+                    }
+                });
+            });
             // 添加供应商
             $('#add-supplier').bootstrapValidator({
                 feedbackIcons: {
@@ -182,6 +217,32 @@ let backendFn = function () {
                     pagination: true,
                     cache: false,
                     url: '/supplier/allSuppliers'
+                });
+            });
+            $('#add-product-frame').on('show.bs.modal', function () {
+                $.ajax({
+                    url: '/secondCategory/getAllGoods',
+                    success: function (data) {
+                        let options = '';
+                        if (data && data.length != 0) {
+                            for (const datum of data) {
+                                options += '<option value=\'' + datum.id + '\'>' + datum.secondCategoryName + '</option>';
+                            }
+                            $('#add-product-batch select[name=\'secondCategory.id\']').html(options).selectpicker('refresh');
+                        }
+                    }
+                });
+                $.ajax({
+                    url: '/supplier/allSuppliers',
+                    success: function (data) {
+                        let options = '';
+                        if (data && data.length != 0) {
+                            for (const datum of data) {
+                                options += '<option value=\'' + datum.id + '\'>' + datum.supplierName + '</option>';
+                            }
+                            $('#add-product-batch select[name=\'supplier.id\']').html(options).selectpicker('refresh');
+                        }
+                    }
                 });
             });
         }

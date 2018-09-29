@@ -591,6 +591,7 @@ footer {
 }
 
 .templatemo-blue-button,
+.templatemo-pink-button,
 .templatemo-white-button {
     border-radius: 2px;
     padding: 10px 30px;
@@ -616,6 +617,16 @@ footer {
 
 .templatemo-white-button:hover {
     background-color: #eff2f3;
+}
+
+.templatemo-pink-button {
+    background-color: pink;
+    border: 1px solid #39ADB4;
+    color: #39ADB4;
+}
+
+.templatemo-pink-button:hover {
+    background-color: lightpink;
 }
 
 .templatemo-register-widget {

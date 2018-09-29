@@ -1,13 +1,17 @@
 package com.kanper.bean;
 
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import lombok.Data;
+import org.hibernate.annotations.DynamicInsert;
 
 import javax.persistence.*;
-import java.sql.Date;
+import java.sql.Timestamp;
 
 @Entity
 @Table(name = "t_goods")
 @Data
+@JsonIgnoreProperties(ignoreUnknown = true)
+@DynamicInsert
 public class GoodsBean {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
@@ -32,7 +36,7 @@ public class GoodsBean {
     /**
      * 商品购买时间
      */
-    private Date buyDate;
+    private Timestamp buyDate = new Timestamp(System.currentTimeMillis());
     /**
      * 商品供应商
      */
