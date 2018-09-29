@@ -21,9 +21,9 @@ public class SupplierController {
     public ActionResult add(SupplierBean supplierBean) {
         SupplierBean supplierBean1 = supplierService.add(supplierBean);
         if (supplierBean1 != null) {
-            return ActionResult.success("添加成功", supplierBean1);
+            return ActionResult.success("添加供应商" + supplierBean.getSupplierName() + "成功", supplierBean1);
         }
-        return ActionResult.fail("添加失败");
+        return ActionResult.fail("添加供应商"+supplierBean.getSupplierName()+"失败");
     }
 
     @GetMapping("/allSuppliers")

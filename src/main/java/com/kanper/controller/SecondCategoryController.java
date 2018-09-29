@@ -22,9 +22,9 @@ public class SecondCategoryController {
 
         SecondCategory secondCategory1 = secondCategoryService.add(secondCategory);
         if (secondCategory1 != null) {
-            return ActionResult.success("添加成功", secondCategory1);
+            return ActionResult.success("添加商品品类" + secondCategory.getSecondCategoryName() + "成功", secondCategory1);
         }
-        return ActionResult.fail("添加失败");
+        return ActionResult.fail("添加商品品类"+secondCategory.getSecondCategoryName()+"失败");
     }
 
     @GetMapping("/getAllGoods")

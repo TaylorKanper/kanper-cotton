@@ -77,7 +77,7 @@ let backendFn = function () {
                     success: function (data) {
                         $('#add-supplier-frame').modal('hide');
                         $('#add-supplier').bootstrapValidator('resetForm', true);
-                        toastr.success('添加供应商' + data.data.supplierName + '成功');
+                        toastr.success(data.msg);
                     },
                     error: function (e) {
                         toastr.error(e.responseJSON.msg);
@@ -115,7 +115,7 @@ let backendFn = function () {
                     success: function (data) {
                         $('#add-goods-frame').modal('hide');
                         $('#add-goods').bootstrapValidator('resetForm', true);
-                        toastr.success('添加商品' + data.data.secondCategoryName + '成功');
+                        toastr.success(data.msg);
                     },
                     error: function (e) {
                         toastr.error(e.responseJSON.msg);
@@ -148,7 +148,7 @@ let backendFn = function () {
                     success: function (data) {
                         $('#add-category-frame').modal('hide');
                         $('#addSort').bootstrapValidator('resetForm', true);
-                        toastr.success('添加分类' + data.data.firstCategoryName + '成功');
+                        toastr.success(data.msg);
                     },
                     error: function (e) {
                         toastr.error(e.responseJSON.msg);

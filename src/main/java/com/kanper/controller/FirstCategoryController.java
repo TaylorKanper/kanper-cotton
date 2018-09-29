@@ -21,9 +21,9 @@ public class FirstCategoryController {
     public ActionResult add(FirstCategoryBean firstCategoryBean) {
         FirstCategoryBean firstCategoryBean1 = firstCategoryService.add(firstCategoryBean);
         if (firstCategoryBean1 != null) {
-            return ActionResult.success("成功", firstCategoryBean1);
+            return ActionResult.success("添加分类" + firstCategoryBean.getFirstCategoryName() + "成功", firstCategoryBean1);
         }
-        return ActionResult.fail("添加失败");
+        return ActionResult.fail("添加分类" + firstCategoryBean.getFirstCategoryName() + "失败");
     }
 
     @GetMapping("/getAllCategory")
