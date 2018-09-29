@@ -52,9 +52,52 @@
                     <button class="templatemo-white-button" data-toggle="modal" data-target="#all-category-frame">所有分类</button>
                     <button class="templatemo-white-button" data-toggle="modal" data-target="#all-goods-frame">所有商品</button>
                     <button class="templatemo-white-button" data-toggle="modal" data-target="#all-supplier-frame">所有供应商</button>
+                    <button class="templatemo-pink-button" data-toggle="modal" data-target="#add-product-frame">进货</button>
                 </div>
             </div>
         </div>
+    </div>
+</div>
+<div class="modal fade" id="add-product-frame" tabindex="-1" role="dialog" aria-labelledby="add-product">
+    <div class="modal-dialog" role="document" style="display: table; width: auto;">
+        <form id="add-product-form">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span
+                            aria-hidden="true">&times;</span>
+                    </button>
+                    <h4 class="modal-title" id="add-product">添加商品进货单</h4>
+                </div>
+
+                <div class="modal-body">
+                    <table id="add-product-table" class="table table-hover table-striped table-bordered templatemo-user-table">
+                        <thead>
+                        <tr>
+                            <td>供应商</td>
+                            <td>商品名称</td>
+                            <td>商品进价</td>
+                            <td>商品售价</td>
+                            <td>进货数量</td>
+                        </tr>
+                        </thead>
+                        <tbody id="add-product-batch">
+                        <tr>
+                            <td class="col-xs-1"><select name="supplier.id"  class="form-control supplier" data-live-search="true" data-size="5"></select></td>
+                            <td class="col-xs-1"><select name="secondCategory.id" class="form-control secondCategory" data-live-search="true" data-size="5"></select></td>
+                            <td class="col-xs-1"><input name="buyPrice" type="number" class="form-control input-sm"></td>
+                            <td class="col-xs-1"><input name="soldPrice" type="number" class="form-control input-sm"></td>
+                            <td class="col-xs-1"><input name="number" type="number" class="form-control input-sm" value="1"></td>
+                        </tr>
+                        </tbody>
+                    </table>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" id="add-product-row" class="btn btn-primary">添加行</button>
+                    <button type="button" class="btn btn-default" data-dismiss="modal">关闭</button>
+                    <button type="submit" class="btn btn-primary">保存</button>
+                </div>
+            </div>
+        </form>
     </div>
 </div>
 <div class="modal fade" id="add-category-frame" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
