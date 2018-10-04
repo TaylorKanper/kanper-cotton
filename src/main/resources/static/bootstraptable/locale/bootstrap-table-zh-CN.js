@@ -38,6 +38,9 @@
         },
         formatClearFilters: function () {
             return '清空过滤';
+        },
+        formatFullscreen:function () {
+            return '全屏显示'
         }
     };
 

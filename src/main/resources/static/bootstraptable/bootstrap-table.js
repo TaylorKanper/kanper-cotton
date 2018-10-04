@@ -24,6 +24,7 @@
                 refresh: 'glyphicon-refresh icon-refresh',
                 toggleOff: 'glyphicon-list-alt icon-list-alt',
                 toggleOn: 'glyphicon-list-alt icon-list-alt',
+                toggle: 'glyphicon-list-alt icon-list-alt',
                 columns: 'glyphicon-th icon-th',
                 detailOpen: 'glyphicon-plus icon-plus',
                 detailClose: 'glyphicon-minus icon-minus',
@@ -1145,10 +1146,7 @@
                 '</button>');
         }
 
-        if (this.options.showFullscreen) {
-            this.$toolbar.find('button[name="fullscreen"]')
-                .off('click').on('click', $.proxy(this.toggleFullscreen, this));
-        }
+
 
         if (this.options.showRefresh) {
             html.push(sprintf('<button class="btn' +
@@ -1179,6 +1177,7 @@
                     sprintf('<i class="%s %s"></i>', this.options.iconsPrefix, this.options.icons.fullscreen),
                     '</button>');
         }
+
 
         if (this.options.showColumns) {
             html.push(sprintf('<div class="keep-open btn-group" title="%s">',
@@ -1254,7 +1253,10 @@
                 that.trigger('column-switch', $(this).data('field'), $this.prop('checked'));
             });
         }
-
+        if (this.options.showFullscreen) {
+            this.$toolbar.find('button[name="fullscreen"]')
+                .off('click').on('click', $.proxy(this.toggleFullscreen, this));
+        }
         if (this.options.search) {
             html = [];
             html.push(

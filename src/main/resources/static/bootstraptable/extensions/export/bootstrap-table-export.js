@@ -10,22 +10,22 @@
     var TYPE_NAME = {
         json: 'JSON',
         xml: 'XML',
-        png: 'PNG',
-        csv: 'CSV',
+        png: 'PNG图片',
+        csv: 'CSV格式',
         txt: 'TXT',
         sql: 'SQL',
-        doc: 'MS-Word',
-        excel: 'MS-Excel',
-        xlsx: 'MS-Excel (OpenXML)',
-        powerpoint: 'MS-Powerpoint',
-        pdf: 'PDF'
+        doc: 'MS-Word文档',
+        excel: 'MS-Excel文档',
+        xlsx: 'MS-Excel (2017版)',
+        powerpoint: 'MS-Powerpoint格式',
+        pdf: 'PDF格式'
     };
 
     $.extend($.fn.bootstrapTable.defaults, {
         showExport: false,
         exportDataType: 'basic', // basic, all, selected
         // 'json', 'xml', 'png', 'csv', 'txt', 'sql', 'doc', 'excel', 'powerpoint', 'pdf'
-        exportTypes: ['json', 'xml', 'csv', 'txt', 'sql', 'excel'],
+        exportTypes: ['json', 'xml', 'png', 'csv', 'txt', 'sql', 'doc', 'excel', 'powerpoint', 'pdf'],
         exportOptions: {}
     });
 
@@ -56,17 +56,17 @@
             if (!$export.length) {
                 $export = $([
                     '<div class="export btn-group">',
-                        '<button class="btn' +
-                            sprintf(' btn-%s', this.options.buttonsClass) +
-                            sprintf(' btn-%s', this.options.iconSize) +
-                            ' dropdown-toggle" aria-label="export type" ' +
-                            'title="' + this.options.formatExport() + '" ' +
-                            'data-toggle="dropdown" type="button">',
-                            sprintf('<i class="%s %s"></i> ', this.options.iconsPrefix, this.options.icons.export),
-                            '<span class="caret"></span>',
-                        '</button>',
-                        '<ul class="dropdown-menu" role="menu">',
-                        '</ul>',
+                    '<button class="btn' +
+                    sprintf(' btn-%s', this.options.buttonsClass) +
+                    sprintf(' btn-%s', this.options.iconSize) +
+                    ' dropdown-toggle" aria-label="export type" ' +
+                    'title="' + this.options.formatExport() + '" ' +
+                    'data-toggle="dropdown" type="button">',
+                    sprintf('<i class="%s %s"></i> ', this.options.iconsPrefix, this.options.icons.export),
+                    '<span class="caret"></span>',
+                    '</button>',
+                    '<ul class="dropdown-menu" role="menu">',
+                    '</ul>',
                     '</div>'].join('')).appendTo($btnGroup);
 
                 var $menu = $export.find('.dropdown-menu'),
@@ -83,9 +83,9 @@
                 $.each(exportTypes, function (i, type) {
                     if (TYPE_NAME.hasOwnProperty(type)) {
                         $menu.append(['<li role="menuitem" data-type="' + type + '">',
-                                '<a href="javascript:void(0)">',
-                                    TYPE_NAME[type],
-                                '</a>',
+                            '<a href="javascript:void(0)">',
+                            TYPE_NAME[type],
+                            '</a>',
                             '</li>'].join(''));
                     }
                 });

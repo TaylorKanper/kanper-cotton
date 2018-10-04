@@ -1,11 +1,37 @@
 ;
 $(function () {
     backend.initEvent();
+    backend.initDom();
 });
 let backendFn = function () {
     return {
         initDom: function () {
-
+            $("#goods-table").bootstrapTable({
+                classes: "table table-hover table-striped table-bordered templatemo-user-table",
+                columns: [{
+                    field: 'id',
+                    title: '商品ID',
+                    sortable: true
+                }, {
+                    field: 'secondCategoryName',
+                    title: '商品名称',
+                    sortable: true
+                }, {
+                    field: 'firstCategory.firstCategoryName',
+                    title: '分类名称',
+                    sortable: true
+                }],
+                search: true,
+                showRefresh: true,
+                showFullscreen: true,
+                showToggle: true,
+                showExport: true,
+                showPaginationSwitch: true,
+                showColumns: true,
+                pagination: true,
+                cache: false,
+                url: '/secondCategory/getAllGoods'
+            });
         },
         initEvent: function () {
             $('#add-product-row').on('click', function () {
