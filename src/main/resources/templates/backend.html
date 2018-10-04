@@ -46,13 +46,18 @@
         <div class="templatemo-content-container">
             <div class="templatemo-content-widget white-bg">
                 <div class="row">
-                    <button class="templatemo-blue-button" data-toggle="modal" data-target="#add-category-frame">添加分类</button>
-                    <button class="templatemo-blue-button" data-toggle="modal" data-target="#add-goods-frame">添加商品</button>
-                    <button class="templatemo-blue-button" data-toggle="modal" data-target="#add-supplier-frame">添加供应商</button>
-                    <button class="templatemo-white-button" data-toggle="modal" data-target="#all-category-frame">所有分类</button>
-                    <button class="templatemo-white-button" data-toggle="modal" data-target="#all-goods-frame">所有商品</button>
-                    <button class="templatemo-white-button" data-toggle="modal" data-target="#all-supplier-frame">所有供应商</button>
-                    <button class="templatemo-pink-button" data-toggle="modal" data-target="#add-product-frame">进货</button>
+                    <div class="col-xs-9">
+                        <button class="templatemo-blue-button" data-toggle="modal" data-target="#add-category-frame">添加分类</button>
+                        <button class="templatemo-blue-button" data-toggle="modal" data-target="#add-goods-frame">添加商品</button>
+                        <button class="templatemo-blue-button" data-toggle="modal" data-target="#add-supplier-frame">添加供应商</button>
+                        <button class="templatemo-white-button" data-toggle="modal" data-target="#all-category-frame">所有分类</button>
+                        <button class="templatemo-white-button" data-toggle="modal" data-target="#all-goods-frame">所有商品</button>
+                        <button class="templatemo-white-button" data-toggle="modal" data-target="#all-supplier-frame">所有供应商</button>
+                        <button class="templatemo-pink-button" data-toggle="modal" data-target="#add-product-frame">进货</button>
+                    </div>
+                    <div class="col-xs-3">
+                        <p class="text-primary"> 双击表格某一行，可以对表格中的行记录进行修改 </p>
+                    </div>
                 </div>
             </div>
             <div class="templatemo-content-widget no-padding">
@@ -61,6 +66,58 @@
                 </div>
             </div>
         </div>
+    </div>
+</div>
+<div class="modal fade" id="update-product-frame" tabindex="-1" role="dialog" aria-labelledby="update-product">
+    <div class="modal-dialog" role="document" style="display: table; width: auto;">
+        <form id="update-product-form" class="form-horizontal">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span
+                            aria-hidden="true">&times;</span>
+                    </button>
+                    <h4 class="modal-title" id="update-product">修改商品记录</h4>
+                </div>
+
+                <div class="modal-body">
+                    <input type="hidden" name="id" id="update-id" title="商品ID">
+                    <div class="form-group">
+                        <label for="update-secondCategory" class="col-sm-4 control-label">商品名称</label>
+                        <div class="col-sm-8">
+                            <select title="商品名称" id="update-secondCategory" name="secondCategory.id" class="form-control" data-live-search="true" data-size="5"></select>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label for="update-supplier" class="col-sm-4 control-label">分类名称</label>
+                        <div class="col-sm-8">
+                            <select title="供应商" id="update-supplier" name="supplier.id" class="form-control" data-live-search="true" data-size="5"></select>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label for="update-buyPrice" class="col-sm-4 control-label">进货价格</label>
+                        <div class="col-sm-8">
+                            <input title="进货价格" type="number" id="update-buyPrice" name="buyPrice" class="form-control"/>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label for="update-soldPrice" class="col-sm-4 control-label">出售价格</label>
+                        <div class="col-sm-8">
+                            <input title="出售价格" type="number" id="update-soldPrice" name="soldPrice" class="form-control"/>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label for="update-number" class="col-sm-4 control-label">库存数量</label>
+                        <div class="col-sm-8">
+                            <input title="库存数量" type="number" id="update-number" name="number" class="form-control"/>
+                        </div>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-default" data-dismiss="modal">关闭</button>
+                    <button type="submit" class="btn btn-primary">保存</button>
+                </div>
+            </div>
+        </form>
     </div>
 </div>
 <div class="modal fade" id="add-product-frame" tabindex="-1" role="dialog" aria-labelledby="add-product">
@@ -87,11 +144,12 @@
                         </thead>
                         <tbody id="add-product-batch">
                         <tr>
-                            <td class="col-xs-1"><select name="supplier.id"  class="form-control supplier" data-live-search="true" data-size="5"></select></td>
-                            <td class="col-xs-1"><select name="secondCategory.id" class="form-control secondCategory" data-live-search="true" data-size="5"></select></td>
-                            <td class="col-xs-1"><input name="buyPrice" type="number" class="form-control input-sm"></td>
-                            <td class="col-xs-1"><input name="soldPrice" type="number" class="form-control input-sm"></td>
-                            <td class="col-xs-1"><input name="number" type="number" class="form-control input-sm" value="1"></td>
+                            <td class="col-xs-1"><select title="供应商" name="supplier.id" class="form-control supplier" data-live-search="true" data-size="5"></select></td>
+                            <td class="col-xs-1"><select title="商品名称" name="secondCategory.id" class="form-control secondCategory" data-live-search="true"
+                                                         data-size="5"></select></td>
+                            <td class="col-xs-1"><input title="进价" name="buyPrice" type="number" class="form-control input-sm"></td>
+                            <td class="col-xs-1"><input title="售价" name="soldPrice" type="number" class="form-control input-sm"></td>
+                            <td class="col-xs-1"><input title="进货数量" name="number" type="number" class="form-control input-sm" value="1"></td>
                         </tr>
                         </tbody>
                     </table>
@@ -165,6 +223,7 @@
         </form>
     </div>
 </div>
+
 <div class="modal fade" id="all-category-frame" tabindex="-1" role="dialog" aria-labelledby="allCategory">
     <div class="modal-dialog modal-sm" role="document">
         <div class="modal-content">
@@ -251,11 +310,15 @@
 <script th:src="@{/bootstraptable/bootstrap-table.js}" src="../static/bootstraptable/bootstrap-table.js"></script>
 <script th:src="@{/bootstraptable/locale/bootstrap-table-zh-CN.js}" src="../static/bootstraptable/locale/bootstrap-table-zh-CN.js"></script>
 <script th:src="@{/bootstraptable/extensions/export/tableExport.js}" src="../static/bootstraptable/extensions/export/tableExport.js"></script>
-<script th:src="@{/bootstraptable/extensions/export/libs/js-xlsx/xlsx.core.min.js}" src="../static/bootstraptable/extensions/export/libs/js-xlsx/xlsx.core.min.js"></script>
+<script th:src="@{/bootstraptable/extensions/export/libs/js-xlsx/xlsx.core.min.js}"
+        src="../static/bootstraptable/extensions/export/libs/js-xlsx/xlsx.core.min.js"></script>
 <script th:src="@{/bootstraptable/extensions/export/libs/jsPDF/jspdf.min.js}" src="../static/bootstraptable/extensions/export/libs/jsPDF/jspdf.min.js"></script>
-<script th:src="@{/bootstraptable/extensions/export/libs/jsPDF-AutoTable/jspdf.plugin.autotable.js}" src="../static/bootstraptable/extensions/export/libs/jsPDF-AutoTable/jspdf.plugin.autotable.js"></script>
-<script th:src="@{/bootstraptable/extensions/export/libs/es6-promise/es6-promise.auto.min.js}" src="../static/bootstraptable/extensions/export/libs/es6-promise/es6-promise.auto.min.js"></script>
-<script th:src="@{/bootstraptable/extensions/export/libs/html2canvas/html2canvas.min.js}" src="../static/bootstraptable/extensions/export/libs/html2canvas/html2canvas.min.js"></script>
+<script th:src="@{/bootstraptable/extensions/export/libs/jsPDF-AutoTable/jspdf.plugin.autotable.js}"
+        src="../static/bootstraptable/extensions/export/libs/jsPDF-AutoTable/jspdf.plugin.autotable.js"></script>
+<script th:src="@{/bootstraptable/extensions/export/libs/es6-promise/es6-promise.auto.min.js}"
+        src="../static/bootstraptable/extensions/export/libs/es6-promise/es6-promise.auto.min.js"></script>
+<script th:src="@{/bootstraptable/extensions/export/libs/html2canvas/html2canvas.min.js}"
+        src="../static/bootstraptable/extensions/export/libs/html2canvas/html2canvas.min.js"></script>
 <script th:src="@{/bootstraptable/extensions/export/bootstrap-table-export.js}" src="../static/bootstraptable/extensions/export/bootstrap-table-export.js"></script>
 <script th:src="@{/bootstrapselect/js/bootstrap-select.js}" src="../static/bootstrapselect/js/bootstrap-select.js"></script>
 <script th:src="@{/js/templatemo-script.js}" src="../static/js/templatemo-script.js"></script>

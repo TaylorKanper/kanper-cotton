@@ -7,18 +7,38 @@ let backendFn = function () {
     return {
         initDom: function () {
             $("#goods-table").bootstrapTable({
+                url: '/goods/getAllGoods',
                 classes: "table table-hover table-striped table-bordered templatemo-user-table",
                 columns: [{
                     field: 'id',
-                    title: '商品ID',
+                    title: '商品ID'
+                }, {
+                    field: 'secondCategory.firstCategory.firstCategoryName',
+                    title: '商品分类',
                     sortable: true
                 }, {
-                    field: 'secondCategoryName',
+                    field: 'secondCategory.secondCategoryName',
                     title: '商品名称',
                     sortable: true
                 }, {
-                    field: 'firstCategory.firstCategoryName',
-                    title: '分类名称',
+                    field: 'supplier.supplierName',
+                    title: '供应商名称',
+                    sortable: true
+                }, {
+                    field: 'buyPrice',
+                    title: '进货价格',
+                    sortable: true
+                }, {
+                    field: 'soldPrice',
+                    title: '出售价格',
+                    sortable: true
+                }, {
+                    field: 'number',
+                    title: '库存',
+                    sortable: true
+                }, {
+                    field: 'buyDate',
+                    title: '进货时间',
                     sortable: true
                 }],
                 search: true,
@@ -30,7 +50,66 @@ let backendFn = function () {
                 showColumns: true,
                 pagination: true,
                 cache: false,
-                url: '/secondCategory/getAllGoods'
+                onDblClickRow: function (row) {
+                    $('#update-product-frame').modal('show');
+                    backend.initForm(row);
+                }
+            });
+        },
+        initForm: function (row) {
+            $.ajax({
+                url: '/secondCategory/getAllGoods',
+                success: function (data) {
+                    let options = '';
+                    if (data && data.length != 0) {
+                        for (const datum of data) {
+                            options += '<option value=\'' + datum.id + '\'>' + datum.secondCategoryName + '</option>';
+                        }
+                        $('#update-secondCategory').html(options).selectpicker('refresh').selectpicker('val', row.secondCategory.id);
+                    }
+                }
+            });
+            $.ajax({
+                url: '/supplier/allSuppliers',
+                success: function (data) {
+                    let options = '';
+                    if (data && data.length != 0) {
+                        for (const datum of data) {
+                            options += '<option value=\'' + datum.id + '\'>' + datum.supplierName + '</option>';
+                        }
+                        $('#update-supplier').html(options).selectpicker('refresh').selectpicker('val', row.supplier.id);
+                    }
+                }
+            });
+            $('#update-buyPrice').val(row.buyPrice);
+            $('#update-soldPrice').val(row.soldPrice);
+            $('#update-number').val(row.number);
+            $('#update-id').val(row.id);
+        },
+        getSelectInfo: function () {
+            $.ajax({
+                url: '/secondCategory/getAllGoods',
+                success: function (data) {
+                    let options = '';
+                    if (data && data.length != 0) {
+                        for (const datum of data) {
+                            options += '<option value=\'' + datum.id + '\'>' + datum.secondCategoryName + '</option>';
+                        }
+                        $('#add-product-batch select[name=\'secondCategory.id\']').html(options).selectpicker('refresh');
+                    }
+                }
+            });
+            $.ajax({
+                url: '/supplier/allSuppliers',
+                success: function (data) {
+                    let options = '';
+                    if (data && data.length != 0) {
+                        for (const datum of data) {
+                            options += '<option value=\'' + datum.id + '\'>' + datum.supplierName + '</option>';
+                        }
+                        $('#add-product-batch select[name=\'supplier.id\']').html(options).selectpicker('refresh');
+                    }
+                }
             });
         },
         initEvent: function () {
@@ -62,6 +141,7 @@ let backendFn = function () {
                         if (data.code == 0) {
                             toastr.success(data.msg);
                             $('#add-product-batch tr').remove('.product-add-row');
+                            $('#goods-table').bootstrapTable('refresh');
                         }
                     },
                     error: function (e) {
@@ -246,28 +326,57 @@ let backendFn = function () {
                 });
             });
             $('#add-product-frame').on('show.bs.modal', function () {
-                $.ajax({
-                    url: '/secondCategory/getAllGoods',
-                    success: function (data) {
-                        let options = '';
-                        if (data && data.length != 0) {
-                            for (const datum of data) {
-                                options += '<option value=\'' + datum.id + '\'>' + datum.secondCategoryName + '</option>';
-                            }
-                            $('#add-product-batch select[name=\'secondCategory.id\']').html(options).selectpicker('refresh');
+                backend.getSelectInfo();
+            });
+            $('#update-product-form').bootstrapValidator({
+                feedbackIcons: {
+                    valid: 'glyphicon glyphicon-ok',
+                    invalid: 'glyphicon glyphicon-remove',
+                    validating: 'glyphicon glyphicon-refresh'
+                },
+                fields: {
+                    'secondCategory.id': {
+                        validators: {
+                            notEmpty: {}
+                        }
+                    },
+                    'supplier.id': {
+                        validators: {
+                            notEmpty: {}
+                        }
+                    },
+                    buyPrice: {
+                        validators: {
+                            notEmpty: {}
+                        }
+                    },
+                    soldPrice: {
+                        validators: {
+                            notEmpty: {}
+                        }
+                    },
+                    number: {
+                        validators: {
+                            notEmpty: {}
                         }
                     }
-                });
+                }
+            }).on('success.form.bv', function (e) {
+                // Prevent form submission
+                e.preventDefault();
+                // Get the form instance
+                let $form = $(e.target);
                 $.ajax({
-                    url: '/supplier/allSuppliers',
+                    url: '/goods/updateGoods',
+                    data: $form.serialize(),
+                    method: 'post',
                     success: function (data) {
-                        let options = '';
-                        if (data && data.length != 0) {
-                            for (const datum of data) {
-                                options += '<option value=\'' + datum.id + '\'>' + datum.supplierName + '</option>';
-                            }
-                            $('#add-product-batch select[name=\'supplier.id\']').html(options).selectpicker('refresh');
-                        }
+                        $('#update-product-frame').modal('hide');
+                        $('#goods-table').bootstrapTable('refresh');
+                        toastr.success(data.msg);
+                    },
+                    error: function (e) {
+                        toastr.error(e.responseJSON.msg);
                     }
                 });
             });

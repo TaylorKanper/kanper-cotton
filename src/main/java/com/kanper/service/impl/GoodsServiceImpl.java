@@ -21,4 +21,14 @@ public class GoodsServiceImpl implements IGoodsService {
     public List<GoodsBean> addBatch(List<GoodsBean> goodsBeanList) {
         return goodsRepository.save(goodsBeanList);
     }
+
+    @Override
+    public List<GoodsBean> getAllGoods() {
+        return goodsRepository.findAll();
+    }
+
+    @Override
+    public GoodsBean updateGoods(GoodsBean goodsBean) {
+        return goodsRepository.save(goodsBean);
+    }
 }

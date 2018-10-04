@@ -1,17 +1,21 @@
 package com.kanper.bean;
 
+import com.fasterxml.jackson.annotation.JsonFormat;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import lombok.Data;
-import org.hibernate.annotations.DynamicInsert;
+import org.hibernate.annotations.DynamicUpdate;
+import org.springframework.data.annotation.CreatedDate;
+import org.springframework.data.jpa.domain.support.AuditingEntityListener;
 
 import javax.persistence.*;
-import java.sql.Timestamp;
+import java.util.Date;
 
 @Entity
 @Table(name = "t_goods")
 @Data
 @JsonIgnoreProperties(ignoreUnknown = true)
-@DynamicInsert
+@EntityListeners(AuditingEntityListener.class)
+@DynamicUpdate
 public class GoodsBean {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
@@ -34,9 +38,12 @@ public class GoodsBean {
      */
     private int number;
     /**
-     * 商品购买时间
+     * 商品进货时间
      */
-    private Timestamp buyDate = new Timestamp(System.currentTimeMillis());
+    @JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss")
+    @CreatedDate
+    @Column(updatable=false)
+    private Date buyDate;
     /**
      * 商品供应商
      */
