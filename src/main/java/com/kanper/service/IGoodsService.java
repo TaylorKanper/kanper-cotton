@@ -22,8 +22,19 @@ public interface IGoodsService {
 
     /**
      * 修改某一个商品记录
+     *
      * @param goodsBean 商品记录
      * @return
      */
     GoodsBean updateGoods(GoodsBean goodsBean);
+
+    /**
+     * 根据商品归属id查询所有商品
+     *
+     * @param secondCategoryId 商品ID
+     * @return
+     */
+    List<GoodsBean> getAllGoodsBySecondCategoryId(Long secondCategoryId);
+
+
 }

@@ -24,11 +24,16 @@ public class SecondCategoryController {
         if (secondCategory1 != null) {
             return ActionResult.success("添加商品品类" + secondCategory.getSecondCategoryName() + "成功", secondCategory1);
         }
-        return ActionResult.fail("添加商品品类"+secondCategory.getSecondCategoryName()+"失败");
+        return ActionResult.fail("添加商品品类" + secondCategory.getSecondCategoryName() + "失败");
     }
 
     @GetMapping("/getAllGoods")
     public List<SecondCategory> getAllGoods() {
         return secondCategoryService.allGoods();
+    }
+
+    @GetMapping("/getAllGoodsByFirstId")
+    public List<SecondCategory> getAllGoodsByFirstId(Long id) {
+        return secondCategoryService.getAllGoodsByFirstId(id);
     }
 }

@@ -39,4 +39,14 @@ public class GoodsController {
         }
         return ActionResult.fail("商品记录" + goodsBean1.getSecondCategory().getSecondCategoryName() + "修改失败");
     }
+
+    @GetMapping("/getAllGoodsBySecondCategoryId")
+    public List<GoodsBean> getAllGoodsBySecondCategoryId(Long secondCategoryId) {
+        if (null == secondCategoryId) {
+            return goodsService.getAllGoods();
+        }
+        return goodsService.getAllGoodsBySecondCategoryId(secondCategoryId);
+    }
+
+
 }

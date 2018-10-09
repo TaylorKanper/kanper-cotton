@@ -32,4 +32,10 @@ public class SecondCategoryServiceImpl implements ISecondCategoryService {
         Sort sort = new Sort(Sort.Direction.ASC, "firstCategory", "id");
         return secondCategoryRepository.findAll(sort);
     }
+
+    @Cacheable
+    @Override
+    public List<SecondCategory> getAllGoodsByFirstId(Long id) {
+        return secondCategoryRepository.getAllByFirstCategory_Id(id);
+    }
 }

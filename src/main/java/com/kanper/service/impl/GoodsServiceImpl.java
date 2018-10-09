@@ -17,6 +17,7 @@ public class GoodsServiceImpl implements IGoodsService {
     @Autowired
     private IGoodsRepository goodsRepository;
 
+
     @Override
     public List<GoodsBean> addBatch(List<GoodsBean> goodsBeanList) {
         return goodsRepository.save(goodsBeanList);
@@ -31,4 +32,10 @@ public class GoodsServiceImpl implements IGoodsService {
     public GoodsBean updateGoods(GoodsBean goodsBean) {
         return goodsRepository.save(goodsBean);
     }
+
+    @Override
+    public List<GoodsBean> getAllGoodsBySecondCategoryId(Long secondCategoryId) {
+        return goodsRepository.findAllBySecondCategory_Id(secondCategoryId);
+    }
+
 }
