@@ -144,6 +144,8 @@ let productFn = function () {
                                 if (data.code == 0) {
                                     $("#goods-table").bootstrapTable('refresh');
                                     toastr.success(data.msg);
+                                } else {
+                                    toastr.error(data.msg);
                                 }
                             },
                             error: function (e) {

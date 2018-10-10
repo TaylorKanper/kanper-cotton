@@ -62,7 +62,7 @@ public class PageController {
     }
 
     /**
-     * 商品管理页面
+     * 商品购买管理页面
      *
      * @return
      */
@@ -70,8 +70,9 @@ public class PageController {
     public String product() {
         return "product";
     }
+
     /**
-     * 商品管理页面
+     * 商品后台管理页面
      *
      * @return
      */
@@ -79,6 +80,22 @@ public class PageController {
     public String backend() {
         return "backend";
     }
+
+    /**
+     * 会员管理页面
+     *
+     * @return
+     */
+    @RequestMapping("/member")
+    public String member() {
+        return "member";
+    }
+
+    /**
+     * 退出
+     * @param session
+     * @return
+     */
     @RequestMapping("/exit")
     public String exit(HttpSession session) {
         session.removeAttribute("user");
