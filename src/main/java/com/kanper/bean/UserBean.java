@@ -1,5 +1,6 @@
 package com.kanper.bean;
 
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import lombok.Data;
 
 import javax.persistence.*;
@@ -7,6 +8,7 @@ import javax.persistence.*;
 @Entity
 @Table(name = "t_user")
 @Data
+@JsonIgnoreProperties(ignoreUnknown = true)
 public class UserBean {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)

@@ -1,6 +1,8 @@
 package com.kanper.bean;
 
 import com.fasterxml.jackson.annotation.JsonFormat;
+import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 import org.springframework.data.annotation.CreatedDate;
@@ -15,6 +17,7 @@ import java.util.List;
 @Table(name = "t_member")
 @Data
 @NoArgsConstructor
+@JsonIgnoreProperties(ignoreUnknown = true)
 @EntityListeners(AuditingEntityListener.class)
 public class MemberBean {
     @Id
@@ -23,12 +26,12 @@ public class MemberBean {
     /**
      * 会员名
      */
-    @Column(nullable=false)
+    @Column(nullable = false)
     private String memberName;
     /**
      * 会员手机
      */
-    @Column(nullable=false ,unique=true)
+    @Column(nullable = false, unique = true)
     private String phone;
     /**
      * 会员积分
@@ -37,7 +40,7 @@ public class MemberBean {
     /**
      * 会员生日
      */
-    @JsonFormat(shape=JsonFormat.Shape.STRING,pattern = "MM月dd日")
+    @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "MM月dd日")
     @DateTimeFormat(pattern = "yyyy-MM-dd")
     @Column(updatable = false)
     private Date birthday;
@@ -51,7 +54,8 @@ public class MemberBean {
     /**
      * 会员购买的所有商品
      */
-    @OneToMany
+    @OneToMany(mappedBy = "memberBean")
+    @JsonIgnore
     private List<SoldGoodBean> allPurchases;
 
     public MemberBean(Long memberId) {

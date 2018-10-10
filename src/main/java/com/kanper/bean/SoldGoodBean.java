@@ -24,7 +24,7 @@ public class SoldGoodBean {
      * 商品分类(大类)
      */
     @ManyToOne
-    private SecondCategory secondCategory;
+    private SecondCategory soldSecondCategory;
     /**
      * 出售数量
      */

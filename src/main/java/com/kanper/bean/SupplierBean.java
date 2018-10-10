@@ -1,5 +1,7 @@
 package com.kanper.bean;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import lombok.Data;
 
 import javax.persistence.*;
@@ -11,6 +13,7 @@ import java.util.List;
 @Entity
 @Table(name = "t_supplier")
 @Data
+@JsonIgnoreProperties(ignoreUnknown = true)
 public class SupplierBean {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
@@ -31,7 +34,8 @@ public class SupplierBean {
     /**
      * 供应商提供的商品
      */
-    @OneToMany
+    @OneToMany(mappedBy = "supplier")
+    @JsonIgnore
     private List<GoodsBean> goodsBeans;
 
 }

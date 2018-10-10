@@ -1,5 +1,7 @@
 package com.kanper.bean;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
@@ -10,6 +12,7 @@ import java.util.List;
 @Table(name = "t_second_category")
 @Data
 @NoArgsConstructor
+@JsonIgnoreProperties(ignoreUnknown = true)
 public class SecondCategory {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
@@ -27,12 +30,14 @@ public class SecondCategory {
     /**
      * 二级类目的商品集合
      */
-    @OneToMany
+    @OneToMany(mappedBy = "secondCategory")
+    @JsonIgnore
     private List<GoodsBean> goodsBeans;
     /**
      * 出售的商品集合
      */
-    @OneToMany
+    @OneToMany(mappedBy = "soldSecondCategory")
+    @JsonIgnore
     private List<SoldGoodBean> soldGoodBeans;
 
     public SecondCategory(Long secondCategoryId) {
