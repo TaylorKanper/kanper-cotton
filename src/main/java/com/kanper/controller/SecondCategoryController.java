@@ -1,5 +1,6 @@
 package com.kanper.controller;
 
+import com.kanper.annotation.Authorization;
 import com.kanper.bean.SecondCategory;
 import com.kanper.common.ActionResult;
 import com.kanper.service.ISecondCategoryService;
@@ -18,6 +19,7 @@ public class SecondCategoryController {
     private ISecondCategoryService secondCategoryService;
 
     @PostMapping("/add")
+    @Authorization
     public ActionResult add(SecondCategory secondCategory) {
 
         SecondCategory secondCategory1 = secondCategoryService.add(secondCategory);

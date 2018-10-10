@@ -1,5 +1,6 @@
 package com.kanper.controller;
 
+import com.kanper.annotation.Authorization;
 import com.kanper.bean.GoodsBean;
 import com.kanper.common.ActionResult;
 import com.kanper.service.IGoodsService;
@@ -18,6 +19,7 @@ public class GoodsController {
     private IGoodsService goodsService;
 
     @PostMapping("/batchAdd")
+    @Authorization
     public ActionResult batchAdd(@RequestBody GoodsBean[] goodsBeans) {
         List<GoodsBean> rest = goodsService.addBatch(Arrays.asList(goodsBeans));
         if (!rest.isEmpty()) {
@@ -32,6 +34,7 @@ public class GoodsController {
     }
 
     @PostMapping("/updateGoods")
+    @Authorization
     public ActionResult updateGoods(GoodsBean goodsBean) {
         GoodsBean goodsBean1 = goodsService.updateGoods(goodsBean);
         if (goodsBean1 != null) {

@@ -1,5 +1,6 @@
 package com.kanper.controller;
 
+import com.kanper.annotation.Authorization;
 import com.kanper.bean.SupplierBean;
 import com.kanper.common.ActionResult;
 import com.kanper.service.ISupplierService;
@@ -18,6 +19,7 @@ public class SupplierController {
     private ISupplierService supplierService;
 
     @PostMapping("/add")
+    @Authorization
     public ActionResult add(SupplierBean supplierBean) {
         SupplierBean supplierBean1 = supplierService.add(supplierBean);
         if (supplierBean1 != null) {

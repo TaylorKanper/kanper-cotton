@@ -1,5 +1,6 @@
 package com.kanper.config;
 
+import com.kanper.annotation.Authorization;
 import com.kanper.bean.UserBean;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Component;
@@ -8,6 +9,7 @@ import org.springframework.web.servlet.handler.HandlerInterceptorAdapter;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import java.lang.reflect.Method;
 
 @Component
 @Slf4j
@@ -18,14 +20,29 @@ public class AuthorizationInterceptor extends HandlerInterceptorAdapter {
         if (!(handler instanceof HandlerMethod)) {
             return true;
         }
-        if (((HandlerMethod) handler).getBeanType().getPackage().getName().equals("com.kanper.controller")) {
+        HandlerMethod handlerMethod = (HandlerMethod) handler;
+        Method method = handlerMethod.getMethod();
+        Class c = ((HandlerMethod) handler).getBeanType();
+        if ((c.getPackage().getName().equals("com.kanper.controller") && c.getAnnotation(Authorization.class) != null)) {
             return true;
         }
         UserBean userBean = (UserBean) request.getSession().getAttribute("user");
-        if (userBean == null) {
-            response.sendRedirect("/user/login");
-            return false;
+
+
+        if (c.getAnnotation(Authorization.class) == null && method.getAnnotation(Authorization.class) == null) {
+            if (userBean == null) {
+                response.sendRedirect("/user/login");
+                return false;
+            }
+        } else {
+            if (!userBean.isAdmin()) {
+                response.setStatus(HttpServletResponse.SC_UNAUTHORIZED);
+                response.getWriter().write("你必须有管理员权限才能操作");
+                return false;
+            }
         }
+
+
         return super.preHandle(request, response, handler);
     }
 }

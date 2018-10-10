@@ -19,6 +19,18 @@ let productFn = function () {
         },
         initDom: function () {
             $.ajax({
+                url: '/member/getAllMember',
+                success: function (data) {
+                    let options = '';
+                    if (data && data.length != 0) {
+                        for (const datum of data) {
+                            options += '<option value=\'' + datum.id + '\'>' + datum.memberName + '</option>';
+                        }
+                        $('#choose-member').html(options).selectpicker('refresh').selectpicker('val', '');
+                    }
+                }
+            });
+            $.ajax({
                 url: '/firstCategory/getAllCategory',
                 success: function (data) {
                     let options = '';
@@ -157,6 +169,7 @@ let productFn = function () {
             });
         },
         initEvent: function () {
+
             $('#shopping-cat-form').bootstrapValidator().on('success.form.bv', function (e) {
                 // Prevent form submission
                 e.preventDefault();
@@ -167,7 +180,6 @@ let productFn = function () {
                     goodsItemList: form,
                     memberId: memberId
                 };
-                console.log(postObj);
                 $.ajax({
                     url: '/soldGoods/shoppingCarBuy',
                     data: JSON.stringify(postObj),
@@ -181,6 +193,7 @@ let productFn = function () {
                             toastr.success(data.msg);
                             $('#shopping-car-info').empty();
                             $('#shopping-cat-form').bootstrapTable('refresh');
+                            $('#choose-member').selectpicker('val', '');
                         } else {
                             toastr.error(data.msg);
                         }

@@ -1,7 +1,7 @@
 package com.kanper.controller;
 
+import com.kanper.annotation.Authorization;
 import com.kanper.bean.MemberBean;
-import com.kanper.bean.UserBean;
 import com.kanper.common.ActionResult;
 import com.kanper.common.Response;
 import com.kanper.service.IMemberService;
@@ -12,7 +12,6 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import javax.servlet.http.HttpSession;
 import java.util.List;
 
 @RestController
@@ -42,11 +41,8 @@ public class MemberController {
     }
 
     @PostMapping("/delMember")
-    public ActionResult delMember(Long memberId, HttpSession session) {
-        UserBean userBean = (UserBean) session.getAttribute("user");
-        if (!userBean.isAdmin()) {
-            return ActionResult.fail("非管理员账户不得删除会员");
-        }
+    @Authorization
+    public ActionResult delMember(Long memberId) {
         try {
             Response<String> response = memberService.delMember(memberId);
             if (response.isOk()) {
@@ -61,11 +57,8 @@ public class MemberController {
     }
 
     @PostMapping("/updateMember")
-    public ActionResult updateMember(MemberBean memberBean, HttpSession session) {
-        UserBean userBean = (UserBean) session.getAttribute("user");
-        if (!userBean.isAdmin()) {
-            return ActionResult.fail("非管理员账户不得修改会员");
-        }
+    @Authorization
+    public ActionResult updateMember(MemberBean memberBean) {
         try {
             Response<String> response = memberService.updateMember(memberBean);
             if (response.isOk()) {

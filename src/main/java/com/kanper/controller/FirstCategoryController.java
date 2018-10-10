@@ -1,5 +1,6 @@
 package com.kanper.controller;
 
+import com.kanper.annotation.Authorization;
 import com.kanper.bean.FirstCategoryBean;
 import com.kanper.common.ActionResult;
 import com.kanper.service.IFirstCategoryService;
@@ -18,6 +19,7 @@ public class FirstCategoryController {
     private IFirstCategoryService firstCategoryService;
 
     @PostMapping("/add")
+    @Authorization
     public ActionResult add(FirstCategoryBean firstCategoryBean) {
         FirstCategoryBean firstCategoryBean1 = firstCategoryService.add(firstCategoryBean);
         if (firstCategoryBean1 != null) {

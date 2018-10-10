@@ -21,6 +21,11 @@ public class FirstCategoryBean {
      * 商品小类（商品具体名称）
      */
     @OneToMany
+    @JoinTable(
+            name="t_first_category_second_category_list",
+            joinColumns=@JoinColumn(name="first_category_bean_id"),
+            inverseJoinColumns=@JoinColumn(name="second_category_list_id")
+    )
     private List<SecondCategory> secondCategoryList;
 
 }

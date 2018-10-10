@@ -78,6 +78,10 @@ let memberFn = function () {
                                 }
                             },
                             error: function (e) {
+                                if(e.status==401){
+                                    toastr.error('你必须具备管理员权限才能进行操作');
+                                    return;
+                                }
                                 toastr.error(e.responseJSON.msg);
                             }
                         });
@@ -125,6 +129,10 @@ let memberFn = function () {
 
                     },
                     error: function (e) {
+                        if(e.status==401){
+                            toastr.error('你必须具备管理员权限才能进行操作');
+                            return;
+                        }
                         toastr.error(e.responseJSON.message);
                     }
                 });
