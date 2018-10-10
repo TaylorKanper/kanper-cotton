@@ -1,6 +1,8 @@
 package com.kanper.service;
 
 import com.kanper.bean.SoldGoodBean;
+import com.kanper.common.Response;
+import com.kanper.dto.ShoppingCar;
 
 import java.util.List;
 
@@ -28,4 +30,12 @@ public interface ISoldGoodsService {
      * @return
      */
     boolean batchBuy(Long id, int batchNumber);
+
+    /**
+     * 购物车购买商品，如果传递了会员ID，则使用会员购买方式，否则采用批量购买方式
+     *
+     * @param shoppingCar 购物车实体
+     * @return
+     */
+    Response<String> buyShoppingCar(ShoppingCar shoppingCar) throws Exception;
 }

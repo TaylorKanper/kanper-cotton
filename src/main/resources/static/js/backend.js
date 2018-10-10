@@ -128,7 +128,6 @@ let backendFn = function () {
                 e.preventDefault();
                 // Get the form instance
                 let form = utils.serializeTable($('#add-product-batch'));
-                console.log(form);
                 $.ajax({
                     url: '/goods/batchAdd',
                     data: JSON.stringify(form),

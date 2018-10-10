@@ -30,11 +30,15 @@ public class SoldGoodBean {
      */
     private Integer soldNumber;
     /**
-     * 商品价格
+     * 商品成本
+     */
+    private double cost;
+    /**
+     * 商品原出售单价
      */
     private double price;
     /**
-     * 商品出售价格
+     * 商品出售单价
      */
     private double soldPrice;
     /**
@@ -51,7 +55,6 @@ public class SoldGoodBean {
      */
     @JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss")
     @CreatedDate
-    @Column(updatable=false)
+    @Column(updatable = false)
     private Date buyDate;
-
 }

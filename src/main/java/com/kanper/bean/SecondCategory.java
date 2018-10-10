@@ -1,6 +1,7 @@
 package com.kanper.bean;
 
 import lombok.Data;
+import lombok.NoArgsConstructor;
 
 import javax.persistence.*;
 import java.util.List;
@@ -8,6 +9,7 @@ import java.util.List;
 @Entity
 @Table(name = "t_second_category")
 @Data
+@NoArgsConstructor
 public class SecondCategory {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
@@ -33,4 +35,7 @@ public class SecondCategory {
     @OneToMany
     private List<SoldGoodBean> soldGoodBeans;
 
+    public SecondCategory(Long secondCategoryId) {
+        this.id=secondCategoryId;
+    }
 }

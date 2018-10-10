@@ -1,6 +1,7 @@
 package com.kanper.bean;
 
 import lombok.Data;
+import lombok.NoArgsConstructor;
 
 import javax.persistence.*;
 import java.sql.Date;
@@ -9,6 +10,7 @@ import java.util.List;
 @Entity
 @Table(name = "t_member")
 @Data
+@NoArgsConstructor
 public class MemberBean {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
@@ -34,4 +36,8 @@ public class MemberBean {
      */
     @OneToMany
     private List<SoldGoodBean> allPurchases;
+
+    public MemberBean(Long memberId) {
+        this.id=memberId;
+    }
 }

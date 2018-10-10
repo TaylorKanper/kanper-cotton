@@ -14,6 +14,9 @@ TABLE OF CONTENT
 ----------------------------------------------*/
 /* 1. Universal Styles
 ----------------------------------------------*/
+#shopping-car-info>tr td{
+    vertical-align: middle !important;
+}
 * {
     font-family: 'Open Sans', sans-serif;
 }
