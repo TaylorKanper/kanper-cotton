@@ -1,7 +1,8 @@
 ;
 $(function () {
-    backend.initEvent();
+    backend.getSelectInfo();
     backend.initDom();
+    backend.initEvent();
 });
 let backendFn = function () {
     return {
@@ -86,6 +87,8 @@ let backendFn = function () {
             $('#update-number').val(row.number);
             $('#update-id').val(row.id);
         },
+        secondCategory: undefined,
+        supplier: undefined,
         getSelectInfo: function () {
             $.ajax({
                 url: '/secondCategory/getAllGoods',
@@ -96,6 +99,7 @@ let backendFn = function () {
                             options += '<option value=\'' + datum.id + '\'>' + datum.secondCategoryName + '</option>';
                         }
                         $('#add-product-batch select[name=\'secondCategory.id\']').html(options).selectpicker('refresh');
+                        backend.secondCategory = options;
                     }
                 }
             });
@@ -108,20 +112,24 @@ let backendFn = function () {
                             options += '<option value=\'' + datum.id + '\'>' + datum.supplierName + '</option>';
                         }
                         $('#add-product-batch select[name=\'supplier.id\']').html(options).selectpicker('refresh');
+                        backend.supplier = options;
                     }
                 }
             });
         },
         initEvent: function () {
             $('#add-product-row').on('click', function () {
-                let $row = $('#add-product-batch tr').last();
-                let $supplier = $row.find('select.supplier');
-                let $good = $row.find('select.secondCategory').eq(0);
-                let $tr = "<tr class='product-add-row'>";
-                $tr += "<td class=\"col-xs-1\"><select name=\"supplier.id\"  class=\"form-control supplier\" data-live-search=\"true\" data-size=\"5\">" + $supplier.html() + "</select></td><td class=\"col-xs-1\"><select name=\"secondCategory.id\" class=\"form-control secondCategory\" data-live-search=\"true\" data-size=\"5\">" + $good.html() + "</select></td><td class=\"col-xs-1\"><input name=\"buyPrice\" type=\"number\" class=\"form-control input-sm\"></td><td class=\"col-xs-1\"><input name=\"soldPrice\" type=\"number\" class=\"form-control input-sm\"></td><td class=\"col-xs-1\"><input name=\"number\" type=\"number\" class=\"form-control input-sm\" value=\"1\"></td></tr>";
-                $('#add-product-batch').append($tr);
-                $('#add-product-batch tr').last().find('select').selectpicker('refresh');
-
+                let row = "<tr>\n" +
+                    "<td class=\"col-xs-1\"><select title=\"供应商\" name=\"supplier.id\" class=\"form-control supplier\" data-live-search=\"true\" data-size=\"5\"></select></td>\n" +
+                    "<td class=\"col-xs-1\"><select title=\"商品名称\" name=\"secondCategory.id\" class=\"form-control secondCategory\" data-live-search=\"true\"\n" +
+                    "                                                         data-size=\"5\"></select></td>\n" +
+                    "<td class=\"col-xs-1\"><input title=\"进价\" name=\"buyPrice\" type=\"number\" class=\"form-control input-sm\"></td>\n" +
+                    "<td class=\"col-xs-1\"><input title=\"售价\" name=\"soldPrice\" type=\"number\" class=\"form-control input-sm\"></td>\n" +
+                    "<td class=\"col-xs-1\"><input title=\"进货数量\" name=\"number\" type=\"number\" class=\"form-control input-sm\" value=\"1\"></td>\n" +
+                    "</tr>";
+                $(row).appendTo('#add-product-batch');
+                $('#add-product-batch tr').last().find('select[name=\'secondCategory.id\']').html(backend.secondCategory).selectpicker('refresh');
+                $('#add-product-batch tr').last().find('select[name=\'supplier.id\']').html(backend.supplier).selectpicker('refresh');
             });
             $('#add-product-form').bootstrapValidator().on('success.form.bv', function (e) {
                 // Prevent form submission
@@ -185,7 +193,7 @@ let backendFn = function () {
                         toastr.success(data.msg);
                     },
                     error: function (e) {
-                        if(e.status==401){
+                        if (e.status == 401) {
                             toastr.error('你必须具备管理员权限才能进行操作');
                             return;
                         }
@@ -227,7 +235,7 @@ let backendFn = function () {
                         toastr.success(data.msg);
                     },
                     error: function (e) {
-                        if(e.status==401){
+                        if (e.status == 401) {
                             toastr.error('你必须具备管理员权限才能进行操作');
                             return;
                         }
@@ -264,7 +272,7 @@ let backendFn = function () {
                         toastr.success(data.msg);
                     },
                     error: function (e) {
-                        if(e.status==401){
+                        if (e.status == 401) {
                             toastr.error('你必须具备管理员权限才能进行操作');
                             return;
                         }
@@ -336,9 +344,6 @@ let backendFn = function () {
                     url: '/supplier/allSuppliers'
                 });
             });
-            $('#add-product-frame').on('show.bs.modal', function () {
-                backend.getSelectInfo();
-            });
             $('#update-product-form').bootstrapValidator({
                 feedbackIcons: {
                     valid: 'glyphicon glyphicon-ok',
@@ -387,7 +392,7 @@ let backendFn = function () {
                         toastr.success(data.msg);
                     },
                     error: function (e) {
-                        if(e.status==401){
+                        if (e.status == 401) {
                             toastr.error('你必须具备管理员权限才能进行操作');
                             return;
                         }
