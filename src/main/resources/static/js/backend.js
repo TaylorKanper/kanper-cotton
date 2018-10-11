@@ -41,6 +41,12 @@ let backendFn = function () {
                     field: 'buyDate',
                     title: '进货时间',
                     sortable: true
+                }, {
+                    field: 'function',
+                    title: '操作',
+                    formatter: function (value, row) {
+                        return "<button type='button' class='btn btn-xs btn-danger' data-id='" + row.id + "'>全部返货</button>";
+                    }
                 }],
                 search: true,
                 showRefresh: true,
@@ -54,6 +60,27 @@ let backendFn = function () {
                 onDblClickRow: function (row) {
                     $('#update-product-frame').modal('show');
                     backend.initForm(row);
+                },
+                onLoadSuccess: function () {
+                    $("#goods-table button.btn-danger").on('click', function () {
+                        let goodsId = $(this).attr('data-id');
+                        $.ajax({
+                            url: '/goods/deleteGoods',
+                            data: {goodsId: goodsId},
+                            method: 'post',
+                            success: function (data) {
+                                if (data.code == 0) {
+                                    $("#goods-table").bootstrapTable('refresh');
+                                    toastr.success(data.msg);
+                                } else {
+                                    toastr.error(data.msg);
+                                }
+                            },
+                            error: function (e) {
+                                toastr.error(e.responseJSON.msg);
+                            }
+                        });
+                    });
                 }
             });
         },

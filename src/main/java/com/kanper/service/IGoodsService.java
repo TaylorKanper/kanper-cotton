@@ -1,6 +1,7 @@
 package com.kanper.service;
 
 import com.kanper.bean.GoodsBean;
+import com.kanper.common.Response;
 
 import java.util.List;
 
@@ -43,4 +44,11 @@ public interface IGoodsService {
      * @return
      */
     List<GoodsBean> getAllGoodsByFirstCategoryId(Long firstCategoryId);
+
+    /**
+     * 删除商品
+     * @param goodsId 商品ID
+     * @return
+     */
+    Response<String> deleteGoods(Long goodsId);
 }

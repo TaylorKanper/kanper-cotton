@@ -3,6 +3,7 @@ package com.kanper.controller;
 import com.kanper.annotation.Authorization;
 import com.kanper.bean.GoodsBean;
 import com.kanper.common.ActionResult;
+import com.kanper.common.Response;
 import com.kanper.service.IGoodsService;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -54,5 +55,13 @@ public class GoodsController {
         }
     }
 
+    @PostMapping("/deleteGoods")
+    public ActionResult deleteGoods(Long goodsId) {
+        Response<String> response = goodsService.deleteGoods(goodsId);
+        if (response.isOk()) {
+            return ActionResult.success("商品返货成功");
+        }
+        return ActionResult.fail(response.getErrorMessage());
+    }
 
 }

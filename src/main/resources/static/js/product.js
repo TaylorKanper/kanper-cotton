@@ -75,7 +75,6 @@ let productFn = function () {
                     field: 'function',
                     title: '直接购买',
                     width: '70',
-                    sortable: false,
                     formatter: function (value, row) {
                         return "<button type='button' class='btn btn-xs btn-primary' data-id='" + row.id + "'>购买</button>";
                     }
@@ -83,7 +82,6 @@ let productFn = function () {
                     field: 'shoppingCar',
                     title: '加入购物车',
                     width: '70',
-                    sortable: false,
                     formatter: function (value, row) {
                         return "<button type='button' class='btn btn-xs btn-danger' data-id='" + row.id + "'>加入购物车</button>";
 
