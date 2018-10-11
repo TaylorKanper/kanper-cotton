@@ -24,7 +24,7 @@ let productFn = function () {
                     let options = '';
                     if (data && data.length != 0) {
                         for (const datum of data) {
-                            options += '<option value=\'' + datum.id + '\'>' + datum.memberName + '</option>';
+                            options += '<option value=\'' + datum.id + '\'>' + datum.memberName + ' ' + datum.phone + '</option>';
                         }
                         $('#choose-member').html(options).selectpicker('refresh').selectpicker('val', '');
                     }
@@ -194,14 +194,13 @@ let productFn = function () {
                         if (data.code == 0) {
                             toastr.success(data.msg);
                             $('#shopping-car-info').empty();
-                            $('#shopping-cat-form').bootstrapTable('refresh');
+                            $('#goods-table').bootstrapTable('refresh');
                             $('#choose-member').selectpicker('val', '');
                         } else {
                             toastr.error(data.msg);
                         }
                     },
                     error: function (e) {
-                        console.log(e);
                         toastr.error(e.responseJSON.msg);
                     }
                 });

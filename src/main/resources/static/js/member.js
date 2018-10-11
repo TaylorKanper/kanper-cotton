@@ -32,6 +32,12 @@ let memberFn = function () {
                     title: '会员创建时间',
                     sortable: true
                 }, {
+                    field: 'query',
+                    title: '购物记录',
+                    formatter: function (value, row) {
+                        return "<button type='button' class='btn btn-xs btn-success' data-id='" + row.id + "'>购物记录</button>";
+                    }
+                }, {
                     field: 'function',
                     title: '操作',
                     formatter: function (value, row) {
@@ -63,6 +69,58 @@ let memberFn = function () {
                     $('#update-member').modal('show');
                 },
                 onLoadSuccess: function () {
+                    $("#member-table button.btn-success").on('click', function () {
+                        let memberId = $(this).attr('data-id');
+                        $('#member-soldGoods-table').bootstrapTable({
+                            url: '/member/queryAllSoldGoodsByMember',
+                            classes: "table table-hover table-striped table-bordered templatemo-user-table",
+                            queryParams: function (params) {
+                                params.memberId = memberId;
+                                return params;
+                            },
+                            columns: [{
+                                field: 'memberBean.memberName',
+                                title: '购买者'
+                            }, {
+                                field: 'soldSecondCategory.firstCategory.firstCategoryName',
+                                title: '商品分类',
+                                sortable: true
+                            }, {
+                                field: 'soldSecondCategory.secondCategoryName',
+                                title: '商品名称',
+                                sortable: true
+                            }, {
+                                field: 'price',
+                                title: '原价',
+                                sortable: true
+                            }, {
+                                field: 'soldPrice',
+                                title: '出售价格',
+                                sortable: true
+                            }, {
+                                field: 'soldNumber',
+                                title: '购买数量',
+                                sortable: true
+                            }, {
+                                field: 'discount',
+                                title: '折扣'
+                            }, {
+                                field: 'buyDate',
+                                title: '购买时间',
+                                sortable: true
+                            }],
+                            search: true,
+                            showRefresh: true,
+                            showFullscreen: true,
+                            showToggle: true,
+                            showExport: true,
+                            showPaginationSwitch: true,
+                            showColumns: true,
+                            pagination: true,
+                            cache: false
+                        });
+                        $('#member-soldGoods').modal('show');
+                    });
                     $("#member-table button.btn-danger").on('click', function () {
                         let memberId = $(this).attr('data-id');
                         $.ajax({
@@ -78,7 +136,7 @@ let memberFn = function () {
                                 }
                             },
                             error: function (e) {
-                                if(e.status==401){
+                                if (e.status == 401) {
                                     toastr.error('你必须具备管理员权限才能进行操作');
                                     return;
                                 }
@@ -129,7 +187,7 @@ let memberFn = function () {
 
                     },
                     error: function (e) {
-                        if(e.status==401){
+                        if (e.status == 401) {
                             toastr.error('你必须具备管理员权限才能进行操作');
                             return;
                         }

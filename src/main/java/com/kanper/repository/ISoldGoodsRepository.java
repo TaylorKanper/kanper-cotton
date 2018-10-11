@@ -11,4 +11,6 @@ import java.util.List;
 @Repository
 public interface ISoldGoodsRepository extends JpaRepository<SoldGoodBean, Long> {
     List<SoldGoodBean> queryAllByBuyDateBefore(@Param("date") Date date);
+
+    List<SoldGoodBean> queryAllByMemberBeanId(Long memberId);
 }

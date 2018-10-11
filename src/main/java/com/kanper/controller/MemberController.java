@@ -2,6 +2,7 @@ package com.kanper.controller;
 
 import com.kanper.annotation.Authorization;
 import com.kanper.bean.MemberBean;
+import com.kanper.bean.SoldGoodBean;
 import com.kanper.common.ActionResult;
 import com.kanper.common.Response;
 import com.kanper.service.IMemberService;
@@ -69,6 +70,11 @@ public class MemberController {
             e.printStackTrace();
             return ActionResult.fail("数据库已经存在该记录，或者发生错误");
         }
+    }
+
+    @GetMapping("/queryAllSoldGoodsByMember")
+    public List<SoldGoodBean> queryAllSoldGoodsByMember(Long memberId) {
+        return memberService.queryAllSoldGoodsByMemberId(memberId);
     }
 
 }

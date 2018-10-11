@@ -1,8 +1,10 @@
 package com.kanper.service.impl;
 
 import com.kanper.bean.MemberBean;
+import com.kanper.bean.SoldGoodBean;
 import com.kanper.common.Response;
 import com.kanper.repository.IMemberRepository;
+import com.kanper.repository.ISoldGoodsRepository;
 import com.kanper.service.IMemberService;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -15,6 +17,8 @@ import java.util.List;
 public class MemberServiceImpl implements IMemberService {
     @Autowired
     private IMemberRepository memberRepository;
+    @Autowired
+    private ISoldGoodsRepository soldGoodsRepository;
 
     @Override
     public List<MemberBean> getAllMembers() {
@@ -51,5 +55,10 @@ public class MemberServiceImpl implements IMemberService {
             e.printStackTrace();
         }
         return Response.fail("修改失败", "会员" + memberBean.getMemberName() + "修改失败");
+    }
+
+    @Override
+    public List<SoldGoodBean> queryAllSoldGoodsByMemberId(Long memberId) {
+        return soldGoodsRepository.queryAllByMemberBeanId(memberId);
     }
 }
