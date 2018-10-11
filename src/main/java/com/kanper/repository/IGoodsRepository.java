@@ -9,4 +9,5 @@ import java.util.List;
 @Repository
 public interface IGoodsRepository extends JpaRepository<GoodsBean, Long> {
     List<GoodsBean> findAllBySecondCategory_Id(Long secondCategory_id);
+    List<GoodsBean> findAllBySecondCategory_FirstCategory_Id(Long secondCategory_firstCategory_id);
 }

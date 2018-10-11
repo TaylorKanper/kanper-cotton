@@ -38,4 +38,9 @@ public class GoodsServiceImpl implements IGoodsService {
         return goodsRepository.findAllBySecondCategory_Id(secondCategoryId);
     }
 
+    @Override
+    public List<GoodsBean> getAllGoodsByFirstCategoryId(Long firstCategoryId) {
+        return goodsRepository.findAllBySecondCategory_FirstCategory_Id(firstCategoryId);
+    }
+
 }

@@ -38,7 +38,10 @@ let productFn = function () {
                         for (const datum of data) {
                             options += '<option value=\'' + datum.id + '\'>' + datum.firstCategoryName + '</option>';
                         }
-                        $('#first-category').html(options).selectpicker('refresh').selectpicker('val', data[0].id);
+                        $('#first-category').html(options).selectpicker('refresh').selectpicker('val', data[0].id).on('changed.bs.select', function () {
+                            let firstCategoryId = $(this).selectpicker('val');
+                            $("#goods-table").bootstrapTable('refresh', {query: {firstCategoryId: firstCategoryId}});
+                        });
                     }
                 }
             });
@@ -169,7 +172,6 @@ let productFn = function () {
             });
         },
         initEvent: function () {
-
             $('#shopping-cat-form').bootstrapValidator().on('success.form.bv', function (e) {
                 // Prevent form submission
                 e.preventDefault();

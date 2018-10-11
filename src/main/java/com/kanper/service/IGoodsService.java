@@ -36,5 +36,11 @@ public interface IGoodsService {
      */
     List<GoodsBean> getAllGoodsBySecondCategoryId(Long secondCategoryId);
 
-
+    /**
+     * 根据商品类目ID查询所有商品
+     *
+     * @param firstCategoryId 商品类目ID
+     * @return
+     */
+    List<GoodsBean> getAllGoodsByFirstCategoryId(Long firstCategoryId);
 }

@@ -44,11 +44,14 @@ public class GoodsController {
     }
 
     @GetMapping("/getAllGoodsBySecondCategoryId")
-    public List<GoodsBean> getAllGoodsBySecondCategoryId(Long secondCategoryId) {
-        if (null == secondCategoryId) {
+    public List<GoodsBean> getAllGoodsBySecondCategoryId(Long secondCategoryId, Long firstCategoryId) {
+        if (null == secondCategoryId && firstCategoryId == null) {
             return goodsService.getAllGoods();
+        } else if (null == secondCategoryId) {
+            return goodsService.getAllGoodsByFirstCategoryId(firstCategoryId);
+        } else {
+            return goodsService.getAllGoodsBySecondCategoryId(secondCategoryId);
         }
-        return goodsService.getAllGoodsBySecondCategoryId(secondCategoryId);
     }
 
 
