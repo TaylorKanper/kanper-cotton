@@ -8,6 +8,7 @@ import com.kanper.common.Response;
 import com.kanper.dto.GoodsItem;
 import com.kanper.dto.ShoppingCar;
 import com.kanper.repository.IGoodsRepository;
+import com.kanper.repository.IMemberRepository;
 import com.kanper.repository.ISoldGoodsRepository;
 import com.kanper.service.ISoldGoodsService;
 import lombok.extern.slf4j.Slf4j;
@@ -25,6 +26,8 @@ public class SoldGoodsServiceImpl implements ISoldGoodsService {
     private IGoodsRepository goodsRepository;
     @Autowired
     private ISoldGoodsRepository soldGoodsRepository;
+    @Autowired
+    private IMemberRepository memberRepository;
 
     @Override
     public List<SoldGoodBean> queryTodaySoldGoods() {
@@ -80,9 +83,11 @@ public class SoldGoodsServiceImpl implements ISoldGoodsService {
         }
         return false;
     }
+
     @Transactional(rollbackFor = Exception.class)
     @Override
     public Response<String> buyShoppingCar(ShoppingCar shoppingCar) throws Exception {
+        int total = 0;
         for (GoodsItem goodsItem : shoppingCar.getGoodsItemList()) {
             GoodsBean goodsBean = goodsRepository.getOne(goodsItem.getGoodsId());
             if (goodsBean.getNumber() < goodsItem.getBuyNumber()) {
@@ -105,6 +110,16 @@ public class SoldGoodsServiceImpl implements ISoldGoodsService {
                 goodsBean.setNumber(goodsBean.getNumber() - goodsItem.getBuyNumber());
                 goodsRepository.save(goodsBean);
             }
+            total += goodsItem.getBuyNumber() * goodsItem.getSoldPrice();
+        }
+        if (shoppingCar.getMemberId() != null) {
+            MemberBean memberBean = memberRepository.getOne(shoppingCar.getMemberId());
+            Integer s = memberBean.getIntegral();
+            if (s == null) {
+                s = 0;
+            }
+            memberBean.setIntegral(s + total);
+            memberRepository.save(memberBean);
         }
         return Response.ok("购物车商品购买成功");
     }
