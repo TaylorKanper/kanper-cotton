@@ -41,7 +41,7 @@ public class MemberServiceImpl implements IMemberService {
             return Response.ok("会员删除成功");
         } catch (Exception e) {
             e.printStackTrace();
-            return Response.fail(e.getMessage());
+            return Response.fail("会员删除失败","会员有购买记录，不能删除");
         }
 
     }

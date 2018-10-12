@@ -30,13 +30,10 @@ public class SoldGoodBean {
      */
     private Integer soldNumber;
     /**
-     * 商品成本
+     * 售卖的商品
      */
-    private double cost;
-    /**
-     * 商品原出售单价
-     */
-    private double price;
+    @ManyToOne
+    private GoodsBean goodsBean;
     /**
      * 商品出售单价
      */

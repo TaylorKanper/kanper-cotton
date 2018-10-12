@@ -36,7 +36,7 @@ public class MemberBean {
     /**
      * 会员积分
      */
-    private Integer integral;
+    private Integer integral = 0;
     /**
      * 会员生日
      */

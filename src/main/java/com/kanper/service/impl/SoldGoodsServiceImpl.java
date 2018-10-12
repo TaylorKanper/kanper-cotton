@@ -40,8 +40,7 @@ public class SoldGoodsServiceImpl implements ISoldGoodsService {
         try {
             GoodsBean goodsBean = goodsRepository.getOne(goodsId);
             SoldGoodBean soldGoodBean = new SoldGoodBean();
-            soldGoodBean.setPrice(goodsBean.getSoldPrice());
-            soldGoodBean.setCost(goodsBean.getBuyPrice());
+            soldGoodBean.setGoodsBean(goodsBean);
             soldGoodBean.setSoldPrice(goodsBean.getSoldPrice());
             soldGoodBean.setDiscount(1L);
             soldGoodBean.setSoldSecondCategory(goodsBean.getSecondCategory());
@@ -65,8 +64,7 @@ public class SoldGoodsServiceImpl implements ISoldGoodsService {
         try {
             GoodsBean goodsBean = goodsRepository.getOne(id);
             SoldGoodBean soldGoodBean = new SoldGoodBean();
-            soldGoodBean.setPrice(goodsBean.getSoldPrice());
-            soldGoodBean.setCost(goodsBean.getBuyPrice());
+            soldGoodBean.setGoodsBean(goodsBean);
             soldGoodBean.setSoldPrice(goodsBean.getSoldPrice());
             soldGoodBean.setDiscount(1L);
             soldGoodBean.setSoldSecondCategory(goodsBean.getSecondCategory());
@@ -99,8 +97,7 @@ public class SoldGoodsServiceImpl implements ISoldGoodsService {
             soldGoodBean.setSoldSecondCategory(new SecondCategory(goodsItem.getSecondCategoryId()));
             soldGoodBean.setDiscount(goodsItem.getDiscount());
             soldGoodBean.setSoldPrice(goodsItem.getSoldPrice());
-            soldGoodBean.setPrice(goodsBean.getSoldPrice());
-            soldGoodBean.setCost(goodsBean.getBuyPrice());
+            soldGoodBean.setGoodsBean(goodsBean);
             if (shoppingCar.getMemberId() != null) {
                 soldGoodBean.setMemberBean(new MemberBean(shoppingCar.getMemberId()));
             }

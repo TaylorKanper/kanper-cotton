@@ -15,4 +15,5 @@ public interface ISoldGoodsRepository extends JpaRepository<SoldGoodBean, Long> 
     List<SoldGoodBean> queryAllByMemberBeanId(Long memberId);
 
     List<SoldGoodBean> findAllByBuyDateContains(java.util.Date date);
+
 }

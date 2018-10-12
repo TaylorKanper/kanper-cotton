@@ -72,6 +72,10 @@ let productFn = function () {
                     title: '库存',
                     sortable: true
                 }, {
+                    field: 'buyDate',
+                    title: '进货时间',
+                    sortable: true
+                }, {
                     field: 'function',
                     title: '直接购买',
                     width: '70',
