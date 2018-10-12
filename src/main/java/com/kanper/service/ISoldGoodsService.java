@@ -4,7 +4,7 @@ import com.kanper.bean.SoldGoodBean;
 import com.kanper.common.Response;
 import com.kanper.dto.ShoppingCar;
 
-import java.util.Date;
+import java.sql.Date;
 import java.util.List;
 
 public interface ISoldGoodsService {

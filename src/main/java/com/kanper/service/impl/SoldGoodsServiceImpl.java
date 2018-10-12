@@ -16,7 +16,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-import java.util.Date;
+import java.sql.Date;
 import java.util.List;
 
 @Service
@@ -32,7 +32,7 @@ public class SoldGoodsServiceImpl implements ISoldGoodsService {
 
     @Override
     public List<SoldGoodBean> queryTodaySoldGoods() {
-        return null;
+        return soldGoodsRepository.queryAllToday();
     }
 
     @Override
@@ -124,6 +124,6 @@ public class SoldGoodsServiceImpl implements ISoldGoodsService {
 
     @Override
     public List<SoldGoodBean> querySoldGoodsByDate(Date queryDate) {
-        return soldGoodsRepository.findAllByBuyDateContains(queryDate);
+        return null;
     }
 }

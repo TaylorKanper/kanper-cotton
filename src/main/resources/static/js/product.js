@@ -15,7 +15,8 @@ let productFn = function () {
                 let discount = $(this).find('input[name=discount]').val();
                 total += soldPrice * buyNumber * discount;
             });
-            return total;
+
+            return total.toFixed(1);
         },
         initDom: function () {
             $.ajax({

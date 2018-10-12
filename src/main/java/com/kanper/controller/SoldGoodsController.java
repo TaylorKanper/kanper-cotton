@@ -10,7 +10,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.format.annotation.DateTimeFormat;
 import org.springframework.web.bind.annotation.*;
 
-import java.util.Date;
+import java.sql.Date;
 import java.util.List;
 
 @RestController
@@ -19,6 +19,11 @@ import java.util.List;
 public class SoldGoodsController {
     @Autowired
     private ISoldGoodsService soldGoodsService;
+
+    @GetMapping("/queryToday")
+    public List<SoldGoodBean> queryToday() {
+        return soldGoodsService.queryTodaySoldGoods();
+    }
 
     @PostMapping("/buyItem")
     public ActionResult buyItem(Long goodsId) {
