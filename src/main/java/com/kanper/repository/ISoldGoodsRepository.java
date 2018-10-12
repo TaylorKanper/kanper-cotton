@@ -5,6 +5,7 @@ import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.stereotype.Repository;
 
+import java.util.Date;
 import java.util.List;
 
 @Repository
@@ -14,6 +15,6 @@ public interface ISoldGoodsRepository extends JpaRepository<SoldGoodBean, Long> 
 
     List<SoldGoodBean> queryAllByMemberBeanId(Long memberId);
 
-//    List<SoldGoodBean> findAllByBuyDate_Date(Date date);
+    List<SoldGoodBean> findAllByBuyDateBetween(Date start, Date end);
 
 }

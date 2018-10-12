@@ -10,7 +10,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.format.annotation.DateTimeFormat;
 import org.springframework.web.bind.annotation.*;
 
-import java.sql.Date;
+import java.util.Date;
 import java.util.List;
 
 @RestController
@@ -61,5 +61,14 @@ public class SoldGoodsController {
     public List<SoldGoodBean> querySoldGoodsByDate(@DateTimeFormat(pattern = "yyyy-MM-dd") Date queryDate) {
 
         return soldGoodsService.querySoldGoodsByDate(queryDate);
+    }
+
+    @PostMapping("/returnGoods")
+    public ActionResult returnGoods(Long goodsId) {
+        Response<String> response = soldGoodsService.returnGoods(goodsId);
+        if (response.isOk()) {
+            return ActionResult.success("退货成功", response.getResult());
+        }
+        return ActionResult.fail("退货失败");
     }
 }

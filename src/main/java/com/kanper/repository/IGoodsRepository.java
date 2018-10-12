@@ -8,6 +8,9 @@ import java.util.List;
 
 @Repository
 public interface IGoodsRepository extends JpaRepository<GoodsBean, Long> {
-    List<GoodsBean> findAllBySecondCategory_Id(Long secondCategory_id);
-    List<GoodsBean> findAllBySecondCategory_FirstCategory_Id(Long secondCategory_firstCategory_id);
+    List<GoodsBean> findAllBySecondCategory_IdAndStatus(Long secondCategory_id, boolean status);
+
+    List<GoodsBean> findAllByStatus(boolean status);
+
+    List<GoodsBean> findAllBySecondCategory_FirstCategory_IdAndStatus(Long secondCategory_firstCategory_id, boolean status);
 }

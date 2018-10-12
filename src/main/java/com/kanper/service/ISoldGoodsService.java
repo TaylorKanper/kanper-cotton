@@ -4,7 +4,7 @@ import com.kanper.bean.SoldGoodBean;
 import com.kanper.common.Response;
 import com.kanper.dto.ShoppingCar;
 
-import java.sql.Date;
+import java.util.Date;
 import java.util.List;
 
 public interface ISoldGoodsService {
@@ -47,4 +47,11 @@ public interface ISoldGoodsService {
      * @return
      */
     List<SoldGoodBean> querySoldGoodsByDate(Date queryDate);
+
+    /**
+     * 进行退货处理
+     * @param goodsId 购买记录ID
+     * @return
+     */
+    Response<String> returnGoods(Long goodsId);
 }

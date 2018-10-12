@@ -13,7 +13,7 @@ public class GoodsItem implements Serializable {
     /**
      * 商品折扣
      */
-    private Double discount;
+    private double discount;
     /**
      * 商品分类ID
      */
@@ -29,5 +29,5 @@ public class GoodsItem implements Serializable {
     /**
      * 商品最终出售价格
      */
-    private Double soldPrice;
+    private double soldPrice;
 }

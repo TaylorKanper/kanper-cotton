@@ -26,7 +26,7 @@ public class GoodsServiceImpl implements IGoodsService {
 
     @Override
     public List<GoodsBean> getAllGoods() {
-        return goodsRepository.findAll();
+        return goodsRepository.findAllByStatus(true);
     }
 
     @Override
@@ -36,12 +36,12 @@ public class GoodsServiceImpl implements IGoodsService {
 
     @Override
     public List<GoodsBean> getAllGoodsBySecondCategoryId(Long secondCategoryId) {
-        return goodsRepository.findAllBySecondCategory_Id(secondCategoryId);
+        return goodsRepository.findAllBySecondCategory_IdAndStatus(secondCategoryId, true);
     }
 
     @Override
     public List<GoodsBean> getAllGoodsByFirstCategoryId(Long firstCategoryId) {
-        return goodsRepository.findAllBySecondCategory_FirstCategory_Id(firstCategoryId);
+        return goodsRepository.findAllBySecondCategory_FirstCategory_IdAndStatus(firstCategoryId, true);
     }
 
     @Override

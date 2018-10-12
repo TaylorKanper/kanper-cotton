@@ -22,6 +22,10 @@ let homeFn = function () {
                     title: '商品名称',
                     sortable: true
                 }, {
+                    field: 'goodsBean.supplier.supplierName',
+                    title: '供应商',
+                    sortable: true
+                }, {
                     field: 'soldNumber',
                     title: '数量',
                     sortable: true

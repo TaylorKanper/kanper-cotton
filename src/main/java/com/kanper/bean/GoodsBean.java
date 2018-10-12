@@ -40,6 +40,10 @@ public class GoodsBean {
      */
     private int number;
     /**
+     * 商品上架状态
+     */
+    private boolean status = true;
+    /**
      * 商品进货时间
      */
     @JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss")

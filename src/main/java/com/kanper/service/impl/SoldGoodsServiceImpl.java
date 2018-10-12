@@ -12,11 +12,13 @@ import com.kanper.repository.IMemberRepository;
 import com.kanper.repository.ISoldGoodsRepository;
 import com.kanper.service.ISoldGoodsService;
 import lombok.extern.slf4j.Slf4j;
+import org.joda.time.DateTime;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-import java.sql.Date;
+import java.math.BigDecimal;
+import java.util.Date;
 import java.util.List;
 
 @Service
@@ -40,18 +42,21 @@ public class SoldGoodsServiceImpl implements ISoldGoodsService {
         try {
             GoodsBean goodsBean = goodsRepository.getOne(goodsId);
             SoldGoodBean soldGoodBean = new SoldGoodBean();
-            soldGoodBean.setGoodsBean(goodsBean);
+
             soldGoodBean.setSoldPrice(goodsBean.getSoldPrice());
             soldGoodBean.setDiscount(1L);
             soldGoodBean.setSoldSecondCategory(goodsBean.getSecondCategory());
             soldGoodBean.setSoldNumber(1);
-            soldGoodsRepository.save(soldGoodBean);
+
             if (goodsBean.getNumber() == 1) {
-                goodsRepository.delete(goodsId);
+                goodsBean.setNumber(0);
+                goodsBean.setStatus(false);
             } else {
                 goodsBean.setNumber(goodsBean.getNumber() - 1);
-                goodsRepository.save(goodsBean);
             }
+            soldGoodBean.setGoodsBean(goodsBean);
+            soldGoodsRepository.save(soldGoodBean);
+            goodsRepository.save(goodsBean);
             return true;
         } catch (Exception e) {
             e.printStackTrace();
@@ -64,18 +69,20 @@ public class SoldGoodsServiceImpl implements ISoldGoodsService {
         try {
             GoodsBean goodsBean = goodsRepository.getOne(id);
             SoldGoodBean soldGoodBean = new SoldGoodBean();
-            soldGoodBean.setGoodsBean(goodsBean);
             soldGoodBean.setSoldPrice(goodsBean.getSoldPrice());
             soldGoodBean.setDiscount(1L);
             soldGoodBean.setSoldSecondCategory(goodsBean.getSecondCategory());
             soldGoodBean.setSoldNumber(batchNumber);
-            soldGoodsRepository.save(soldGoodBean);
             if (goodsBean.getNumber() == batchNumber) {
-                goodsRepository.delete(id);
+                goodsBean.setNumber(0);
+                goodsBean.setStatus(false);
             } else {
                 goodsBean.setNumber(goodsBean.getNumber() - batchNumber);
-                goodsRepository.save(goodsBean);
+
             }
+            soldGoodBean.setGoodsBean(goodsBean);
+            soldGoodsRepository.save(soldGoodBean);
+            goodsRepository.save(goodsBean);
             return true;
         } catch (Exception e) {
             e.printStackTrace();
@@ -97,26 +104,29 @@ public class SoldGoodsServiceImpl implements ISoldGoodsService {
             soldGoodBean.setSoldSecondCategory(new SecondCategory(goodsItem.getSecondCategoryId()));
             soldGoodBean.setDiscount(goodsItem.getDiscount());
             soldGoodBean.setSoldPrice(goodsItem.getSoldPrice());
-            soldGoodBean.setGoodsBean(goodsBean);
             if (shoppingCar.getMemberId() != null) {
                 soldGoodBean.setMemberBean(new MemberBean(shoppingCar.getMemberId()));
             }
-            soldGoodsRepository.save(soldGoodBean);
+
             if (goodsBean.getNumber() == goodsItem.getBuyNumber()) {
-                goodsRepository.delete(goodsItem.getGoodsId());
+                goodsBean.setNumber(0);
+                goodsBean.setStatus(false);
             } else {
                 goodsBean.setNumber(goodsBean.getNumber() - goodsItem.getBuyNumber());
-                goodsRepository.save(goodsBean);
             }
-            total += goodsItem.getBuyNumber() * goodsItem.getSoldPrice();
+            soldGoodBean.setGoodsBean(goodsBean);
+            soldGoodsRepository.save(soldGoodBean);
+            goodsRepository.save(goodsBean);
+            total += goodsItem.getBuyNumber() * goodsItem.getSoldPrice() * goodsItem.getDiscount();
         }
+        BigDecimal bd = new BigDecimal(total).setScale(0, BigDecimal.ROUND_HALF_UP);
         if (shoppingCar.getMemberId() != null) {
             MemberBean memberBean = memberRepository.getOne(shoppingCar.getMemberId());
             Integer s = memberBean.getIntegral();
             if (s == null) {
                 s = 0;
             }
-            memberBean.setIntegral(s + total);
+            memberBean.setIntegral(s + bd.intValue());
             memberRepository.save(memberBean);
         }
         return Response.ok("购物车商品购买成功");
@@ -124,6 +134,34 @@ public class SoldGoodsServiceImpl implements ISoldGoodsService {
 
     @Override
     public List<SoldGoodBean> querySoldGoodsByDate(Date queryDate) {
-        return null;
+        DateTime dateTime = new DateTime(queryDate);
+        Date s = dateTime.plusDays(1).toDate();
+        return soldGoodsRepository.findAllByBuyDateBetween(queryDate, s);
+    }
+
+    @Override
+    public Response<String> returnGoods(Long goodsId) {
+        try {
+            SoldGoodBean soldGoodBean = soldGoodsRepository.findOne(goodsId);
+            // 获取关联的会员，扣除会员积分
+            MemberBean m = soldGoodBean.getMemberBean();
+            if (m != null) {// 进行会员积分扣减
+                double reduceIntegral = soldGoodBean.getSoldNumber() * soldGoodBean.getDiscount() * soldGoodBean.getSoldPrice();
+                BigDecimal bd = new BigDecimal(reduceIntegral).setScale(0, BigDecimal.ROUND_HALF_UP);
+                m.setIntegral(m.getIntegral() - bd.intValue());
+            }
+            // 获取关联的商品，返回商品
+            GoodsBean goodsBean = soldGoodBean.getGoodsBean();
+            goodsBean.setNumber(goodsBean.getNumber() + soldGoodBean.getSoldNumber());
+            if (!goodsBean.isStatus()) {
+                goodsBean.setStatus(true);
+            }
+            goodsRepository.save(goodsBean);
+            soldGoodsRepository.delete(goodsId);
+            return Response.ok("商品" + soldGoodBean.getSoldSecondCategory().getSecondCategoryName() + "退货成功");
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return Response.fail("退货失败");
     }
 }
