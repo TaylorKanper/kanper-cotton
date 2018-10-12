@@ -4,6 +4,7 @@ import com.kanper.bean.SoldGoodBean;
 import com.kanper.common.Response;
 import com.kanper.dto.ShoppingCar;
 
+import java.util.Date;
 import java.util.List;
 
 public interface ISoldGoodsService {
@@ -38,4 +39,12 @@ public interface ISoldGoodsService {
      * @return
      */
     Response<String> buyShoppingCar(ShoppingCar shoppingCar) throws Exception;
+
+    /**
+     * 根据日期查询销售记录
+     *
+     * @param queryDate 日期
+     * @return
+     */
+    List<SoldGoodBean> querySoldGoodsByDate(Date queryDate);
 }

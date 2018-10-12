@@ -1,15 +1,17 @@
 package com.kanper.controller;
 
+import com.kanper.bean.SoldGoodBean;
 import com.kanper.common.ActionResult;
 import com.kanper.common.Response;
 import com.kanper.dto.ShoppingCar;
 import com.kanper.service.ISoldGoodsService;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.format.annotation.DateTimeFormat;
+import org.springframework.web.bind.annotation.*;
+
+import java.util.Date;
+import java.util.List;
 
 @RestController
 @RequestMapping("/soldGoods")
@@ -48,5 +50,11 @@ public class SoldGoodsController {
             e.printStackTrace();
             return ActionResult.fail(e.getMessage());
         }
+    }
+
+    @GetMapping("/querySoldGoodsByDate")
+    public List<SoldGoodBean> querySoldGoodsByDate(@DateTimeFormat(pattern = "yyyy-MM-dd") Date queryDate) {
+
+        return soldGoodsService.querySoldGoodsByDate(queryDate);
     }
 }

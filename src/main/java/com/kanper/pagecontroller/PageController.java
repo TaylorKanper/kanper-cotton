@@ -92,7 +92,18 @@ public class PageController {
     }
 
     /**
+     * 售后管理页面
+     *
+     * @return
+     */
+    @RequestMapping("/afterSale")
+    public String afterSale() {
+        return "afterSale";
+    }
+
+    /**
      * 退出
+     *
      * @param session
      * @return
      */
