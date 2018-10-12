@@ -6,6 +6,7 @@ import com.kanper.dto.ShoppingCar;
 
 import java.util.Date;
 import java.util.List;
+import java.util.Map;
 
 public interface ISoldGoodsService {
     /**
@@ -50,8 +51,16 @@ public interface ISoldGoodsService {
 
     /**
      * 进行退货处理
+     *
      * @param goodsId 购买记录ID
      * @return
      */
     Response<String> returnGoods(Long goodsId);
+
+    /**
+     * 按照月度时间和分类查找所有销售的商品
+     *
+     * @return
+     */
+    List<Map<String, Object>> findSoldNumberByCategory();
 }

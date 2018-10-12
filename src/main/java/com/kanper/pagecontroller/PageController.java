@@ -102,6 +102,16 @@ public class PageController {
     }
 
     /**
+     * 统计管理
+     *
+     * @return
+     */
+    @RequestMapping("/statistic")
+    public String statistic() {
+        return "statistic";
+    }
+
+    /**
      * 退出
      *
      * @param session

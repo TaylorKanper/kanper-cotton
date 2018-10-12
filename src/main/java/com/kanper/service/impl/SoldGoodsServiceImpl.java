@@ -20,6 +20,7 @@ import org.springframework.transaction.annotation.Transactional;
 import java.math.BigDecimal;
 import java.util.Date;
 import java.util.List;
+import java.util.Map;
 
 @Service
 @Slf4j
@@ -163,5 +164,10 @@ public class SoldGoodsServiceImpl implements ISoldGoodsService {
             e.printStackTrace();
         }
         return Response.fail("退货失败");
+    }
+
+    @Override
+    public List<Map<String, Object>> findSoldNumberByCategory() {
+        return null;
     }
 }

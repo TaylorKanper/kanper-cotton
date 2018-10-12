@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html lang="zh-CN"
+      xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>棉屋商品管理-统计管理</title>
+    <!-- Bootstrap v3.3.5 -->
+    <link th:href="@{/css/font-awesome.css}" href="../static/css/font-awesome.min.css" rel="stylesheet">
+    <link th:href="@{/bootstrap/css/bootstrap.min.css}" href="../static/bootstrap/css/bootstrap.min.css" rel="stylesheet">
+    <link th:href="@{/bootstraptable/bootstrap-table.min.css}" href="../static/bootstraptable/bootstrap-table.min.css" rel="stylesheet">
+    <link th:href="@{/bootstrapselect/css/bootstrap-select.css}" href="../static/bootstrapselect/css/bootstrap-select.css" rel="stylesheet">
+    <link th:href="@{/css/templatemo-style.css}" href="../static/css/templatemo-style.css" rel="stylesheet">
+    <link th:href="@{/css/toastr.min.css}" href="../static/css/toastr.min.css" rel="stylesheet">
+    <link th:href="@{/favicon/favicon.ico}" href="../static/favicon/favicon.ico" rel="shortcut icon"/>
+    <link th:href="@{/bootstrapvali/css/bootstrapValidator.min.css}" href="../static/bootstrapvali/css/bootstrapValidator.min.css"/>
+    <link th:href="@{/highcharts/css/highcharts.css}" href="../static/highcharts/css/highcharts.css"/>
+</head>
+<body>
+<div class="templatemo-flex-row">
+    <div class="templatemo-sidebar">
+        <header class="templatemo-site-header">
+            <div class="square"></div>
+            <h1>棉屋商品管理</h1>
+        </header>
+        <div class="profile-photo-container">
+            <img th:src="@{/images/profile-photo.jpg}" src="../static/images/profile-photo.jpg" alt="profile-photo"
+                 class="img-responsive"/>
+            <div class="profile-photo-overlay"></div>
+        </div>
+
+        <nav class="templatemo-left-nav">
+            <ul th:each="menu,menuStat:${session.menus}">
+                <li>
+                    <a th:classappend="${menuStat.index==4}?'active':''" th:href="${menu.href}"><i
+                            th:class="${menu.icons}"></i>
+                        <th:block th:text="${menu.menuName}"></th:block>
+                    </a>
+                </li>
+            </ul>
+        </nav>
+    </div>
+    <!-- Left Column End-->
+    <!-- Main content Start-->
+    <div class="templatemo-content col-1 light-gray-bg">
+        <div class="templatemo-content-container">
+            <div class="templatemo-flex-row flex-content-row">
+                <div class="templatemo-content-widget white-bg col-2">
+                    <i class="fa fa-times"></i>
+                    <div id="month-sale-chart"></div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script th:src="@{/bootstrap/js/jquery.min.js}" src="../static/bootstrap/js/jquery.min.js"></script>
+<script th:src="@{/bootstrap/js/bootstrap.js}" src="../static/bootstrap/js/bootstrap.js"></script>
+<script th:src="@{/bootstraptable/bootstrap-table.js}" src="../static/bootstraptable/bootstrap-table.js"></script>
+<script th:src="@{/bootstraptable/locale/bootstrap-table-zh-CN.js}" src="../static/bootstraptable/locale/bootstrap-table-zh-CN.js"></script>
+<script th:src="@{/bootstraptable/extensions/export/tableExport.js}" src="../static/bootstraptable/extensions/export/tableExport.js"></script>
+<script th:src="@{/bootstraptable/extensions/export/libs/js-xlsx/xlsx.core.min.js}"
+        src="../static/bootstraptable/extensions/export/libs/js-xlsx/xlsx.core.min.js"></script>
+<script th:src="@{/bootstraptable/extensions/export/libs/jsPDF/jspdf.min.js}" src="../static/bootstraptable/extensions/export/libs/jsPDF/jspdf.min.js"></script>
+<script th:src="@{/bootstraptable/extensions/export/libs/jsPDF-AutoTable/jspdf.plugin.autotable.js}"
+        src="../static/bootstraptable/extensions/export/libs/jsPDF-AutoTable/jspdf.plugin.autotable.js"></script>
+<script th:src="@{/bootstraptable/extensions/export/libs/es6-promise/es6-promise.auto.min.js}"
+        src="../static/bootstraptable/extensions/export/libs/es6-promise/es6-promise.auto.min.js"></script>
+<script th:src="@{/bootstraptable/extensions/export/libs/html2canvas/html2canvas.min.js}"
+        src="../static/bootstraptable/extensions/export/libs/html2canvas/html2canvas.min.js"></script>
+<script th:src="@{/bootstraptable/extensions/export/bootstrap-table-export.js}" src="../static/bootstraptable/extensions/export/bootstrap-table-export.js"></script>
+<script th:src="@{/bootstrapselect/js/bootstrap-select.js}" src="../static/bootstrapselect/js/bootstrap-select.js"></script>
+<script th:src="@{/js/templatemo-script.js}" src="../static/js/templatemo-script.js"></script>
+<script th:src="@{/js/util.js}" src="../static/js/util.js"></script>
+<script th:src="@{/js/toastr.min.js}" src="../static/js/toastr.min.js"></script>
+<script th:src="@{/bootstrapvali/js/bootstrapValidator.min.js}"
+        src="../static/bootstrapvali/js/bootstrapValidator.min.js"></script>
+<script th:src="@{/bootstrapvali/js/language/zh_CN.js}" src="../static/bootstrapvali/js/language/zh_CN.js"></script>
+<script th:src="@{/bootstrapselect/js/i18n/defaults-zh_CN.js}" src="../static/bootstrapselect/js/i18n/defaults-zh_CN.js"></script>
+<script th:src="@{/highcharts/js/highcharts.js}" src="../static/highcharts/js/highcharts.js"></script>
+<script th:src="@{/js/statistic.js}" src="../static/js/statistic.js"></script>
+</body>
+</html>
