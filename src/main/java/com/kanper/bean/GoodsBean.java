@@ -46,7 +46,7 @@ public class GoodsBean {
     /**
      * 商品进货时间
      */
-    @JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss")
+    @JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss",timezone = "GMT+8")
     @CreatedDate
     @Column(updatable = false)
     private Date buyDate;

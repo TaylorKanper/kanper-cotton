@@ -58,14 +58,14 @@ public class SoldGoodBean {
     /**
      * 商品购买时间
      */
-    @JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss")
+    @JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss",timezone = "GMT+8")
     @CreatedDate
     @Column(updatable = false)
     private Date buyDate;
     /**
      * 商品购买日期
      */
-    @JsonFormat(pattern = "yyyy-MM-dd")
+    @JsonFormat(pattern = "yyyy-MM-dd",timezone = "GMT+8")
     @Column(updatable = false)
     private java.sql.Date date = new java.sql.Date(System.currentTimeMillis());
 }

@@ -40,14 +40,14 @@ public class MemberBean {
     /**
      * 会员生日
      */
-    @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "MM月dd日")
+    @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "MM月dd日",timezone = "GMT+8")
     @DateTimeFormat(pattern = "yyyy-MM-dd")
     @Column(updatable = false)
     private Date birthday;
     /**
      * 会员加入时间
      */
-    @JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss")
+    @JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss",timezone = "GMT+8")
     @CreatedDate
     @Column(updatable = false)
     private Date createDate;

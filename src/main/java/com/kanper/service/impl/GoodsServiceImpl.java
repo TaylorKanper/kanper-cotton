@@ -26,7 +26,7 @@ public class GoodsServiceImpl implements IGoodsService {
     @Override
     public List<GoodsBean> addBatch(List<GoodsBean> goodsBeanList) {
         for (GoodsBean goodsBean : goodsBeanList) {
-            SupplierBean supplierBean = goodsBean.getSupplier();
+            SupplierBean supplierBean = supplierRepository.getOne(goodsBean.getSupplier().getId());
             supplierBean.setTransactionAmount(supplierBean.getTransactionAmount() + goodsBean.getNumber() * goodsBean.getBuyPrice());
             supplierRepository.save(supplierBean);
         }
@@ -42,7 +42,7 @@ public class GoodsServiceImpl implements IGoodsService {
     public GoodsBean updateGoods(GoodsBean goodsBean) {
         GoodsBean oldBean = goodsRepository.getOne(goodsBean.getId());
         double trans = (oldBean.getNumber() - goodsBean.getNumber()) * goodsBean.getBuyPrice();
-        SupplierBean supplierBean = goodsBean.getSupplier();
+        SupplierBean supplierBean = supplierRepository.getOne(goodsBean.getSupplier().getId());
         supplierBean.setTransactionAmount(supplierBean.getTransactionAmount() + trans);
         supplierRepository.save(supplierBean);
         return goodsRepository.save(goodsBean);
@@ -62,7 +62,7 @@ public class GoodsServiceImpl implements IGoodsService {
     public Response<String> deleteGoods(Long goodsId) {
         try {
             GoodsBean goodsBean = goodsRepository.getOne(goodsId);
-            SupplierBean supplierBean = goodsBean.getSupplier();
+            SupplierBean supplierBean = supplierRepository.getOne(goodsBean.getSupplier().getId());
             supplierBean.setTransactionAmount(supplierBean.getTransactionAmount() - goodsBean.getNumber() * goodsBean.getBuyPrice());
             supplierRepository.save(supplierBean);
             goodsRepository.delete(goodsId);

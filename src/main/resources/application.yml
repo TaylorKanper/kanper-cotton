@@ -8,7 +8,7 @@ spring:
     suffix: .html
   datasource:
     # 这里写的是后面的数据源的默认配置
-    url: jdbc:mysql://localhost:3306/cotton_new_kanper?useUnicode=true&characterEncoding=UTF-8&useSSL=true
+    url: jdbc:mysql://localhost:3306/cotton_new_kanper?useUnicode=true&characterEncoding=UTF-8&useSSL=true&serverTimezone=UTC
     driver-class-name: com.mysql.jdbc.Driver
     username: root
     password: 123456
@@ -39,6 +39,8 @@ spring:
     hibernate:
       ddl-auto: update
     show-sql: false
+  jackson:
+    time-zone: GMT+8
 # LOGGING
 logging:
     config: classpath:logback-spring.xml
