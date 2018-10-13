@@ -365,6 +365,9 @@ let backendFn = function () {
                     }, {
                         field: 'phone',
                         title: '供应商电话'
+                    }, {
+                        field: 'transactionAmount',
+                        title: '进货总额'
                     }],
                     pagination: true,
                     cache: false,
