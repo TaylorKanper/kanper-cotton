@@ -9,16 +9,17 @@ import org.springframework.data.annotation.CreatedDate;
 import org.springframework.data.jpa.domain.support.AuditingEntityListener;
 
 import javax.persistence.*;
+import java.io.Serializable;
 import java.util.Date;
 import java.util.List;
 
 @Entity
 @Table(name = "t_goods")
 @Data
-@JsonIgnoreProperties(ignoreUnknown = true)
+@JsonIgnoreProperties({"hibernateLazyInitializer", "handler"})
 @EntityListeners(AuditingEntityListener.class)
 @DynamicUpdate
-public class GoodsBean {
+public class GoodsBean implements Serializable {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Long id;

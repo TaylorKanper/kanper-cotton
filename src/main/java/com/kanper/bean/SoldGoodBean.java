@@ -9,16 +9,17 @@ import org.springframework.data.annotation.CreatedDate;
 import org.springframework.data.jpa.domain.support.AuditingEntityListener;
 
 import javax.persistence.*;
+import java.io.Serializable;
 import java.util.Date;
 
 @Entity
 @Table(name = "t_sold_good")
 @Data
 @NoArgsConstructor
-@JsonIgnoreProperties(ignoreUnknown = true)
+@JsonIgnoreProperties({"hibernateLazyInitializer", "handler"})
 @EntityListeners(AuditingEntityListener.class)
 @DynamicUpdate
-public class SoldGoodBean {
+public class SoldGoodBean implements Serializable {
     public SoldGoodBean(Integer soldNumber, double soldPrice, double discount) {
         this.soldNumber = soldNumber;
         this.soldPrice = soldPrice;

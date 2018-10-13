@@ -4,12 +4,13 @@ import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import lombok.Data;
 
 import javax.persistence.*;
+import java.io.Serializable;
 
 @Entity
 @Table(name = "t_user")
 @Data
-@JsonIgnoreProperties(ignoreUnknown = true)
-public class UserBean {
+@JsonIgnoreProperties({"hibernateLazyInitializer", "handler"})
+public class UserBean implements Serializable {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Long id;

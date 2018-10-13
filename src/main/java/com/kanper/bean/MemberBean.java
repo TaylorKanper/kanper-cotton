@@ -10,6 +10,7 @@ import org.springframework.data.jpa.domain.support.AuditingEntityListener;
 import org.springframework.format.annotation.DateTimeFormat;
 
 import javax.persistence.*;
+import java.io.Serializable;
 import java.util.Date;
 import java.util.List;
 
@@ -17,9 +18,9 @@ import java.util.List;
 @Table(name = "t_member")
 @Data
 @NoArgsConstructor
-@JsonIgnoreProperties(ignoreUnknown = true)
+@JsonIgnoreProperties({"hibernateLazyInitializer", "handler"})
 @EntityListeners(AuditingEntityListener.class)
-public class MemberBean {
+public class MemberBean implements Serializable {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Long id;

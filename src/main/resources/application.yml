@@ -41,6 +41,9 @@ spring:
     show-sql: false
   jackson:
     time-zone: GMT+8
+  http:
+    converters:
+      preferred-json-mapper: jackson
 # LOGGING
 logging:
     config: classpath:logback-spring.xml

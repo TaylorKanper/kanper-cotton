@@ -6,14 +6,15 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 
 import javax.persistence.*;
+import java.io.Serializable;
 import java.util.List;
 
 @Entity
 @Table(name = "t_second_category")
 @Data
 @NoArgsConstructor
-@JsonIgnoreProperties(ignoreUnknown = true)
-public class SecondCategory {
+@JsonIgnoreProperties({"hibernateLazyInitializer", "handler"})
+public class SecondCategory implements Serializable {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Long id;

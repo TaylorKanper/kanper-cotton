@@ -5,6 +5,7 @@ import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import lombok.Data;
 
 import javax.persistence.*;
+import java.io.Serializable;
 import java.util.List;
 
 /**
@@ -13,8 +14,8 @@ import java.util.List;
 @Entity
 @Table(name = "t_supplier")
 @Data
-@JsonIgnoreProperties(ignoreUnknown = true)
-public class SupplierBean {
+@JsonIgnoreProperties({"hibernateLazyInitializer", "handler"})
+public class SupplierBean implements Serializable {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Long id;
