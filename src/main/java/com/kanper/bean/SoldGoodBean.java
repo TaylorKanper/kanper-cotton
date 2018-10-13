@@ -3,6 +3,7 @@ package com.kanper.bean;
 import com.fasterxml.jackson.annotation.JsonFormat;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import lombok.Data;
+import lombok.NoArgsConstructor;
 import org.hibernate.annotations.DynamicUpdate;
 import org.springframework.data.annotation.CreatedDate;
 import org.springframework.data.jpa.domain.support.AuditingEntityListener;
@@ -13,10 +14,17 @@ import java.util.Date;
 @Entity
 @Table(name = "t_sold_good")
 @Data
+@NoArgsConstructor
 @JsonIgnoreProperties(ignoreUnknown = true)
 @EntityListeners(AuditingEntityListener.class)
 @DynamicUpdate
 public class SoldGoodBean {
+    public SoldGoodBean(Integer soldNumber, double soldPrice, double discount) {
+        this.soldNumber = soldNumber;
+        this.soldPrice = soldPrice;
+        this.discount = discount;
+    }
+
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Long id;
@@ -54,4 +62,10 @@ public class SoldGoodBean {
     @CreatedDate
     @Column(updatable = false)
     private Date buyDate;
+    /**
+     * 商品购买日期
+     */
+    @JsonFormat(pattern = "yyyy-MM-dd")
+    @Column(updatable = false)
+    private java.sql.Date date = new java.sql.Date(System.currentTimeMillis());
 }

@@ -26,7 +26,7 @@ public class StatisticController {
         for (int i = 0; i < 11; i++) {
             Map<String, Object> map = new HashMap<>();
             map.put("name", "Name" + i);
-            map.put("data", new Integer[]{1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12});
+            map.put("data", new Object[]{1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12});
             list.add(map);
         }
         return list;

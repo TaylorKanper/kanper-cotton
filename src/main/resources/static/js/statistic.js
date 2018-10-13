@@ -15,20 +15,6 @@ let statisticFn = function () {
                     text: '制作: 爱王姑娘的康老师'
                 },
                 xAxis: {
-                    categories: [
-                        '一月',
-                        '二月',
-                        '三月',
-                        '四月',
-                        '五月',
-                        '六月',
-                        '七月',
-                        '八月',
-                        '九月',
-                        '十月',
-                        '十一月',
-                        '十二月'
-                    ],
                     crosshair: true
                 },
                 yAxis: {
@@ -64,6 +50,8 @@ let statisticFn = function () {
                     for (const datum of data) {
                         chart.addSeries(datum, true, true);
                     }
+                    chart.axes[0].setCategories(['category1','category2']);
+                    console.log(chart);
                     chart.hideLoading()
                 }
             });
