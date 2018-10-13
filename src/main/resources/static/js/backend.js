@@ -174,8 +174,9 @@ let backendFn = function () {
                         $('#add-product-form')[0].reset();
                         if (data.code == 0) {
                             toastr.success(data.msg);
-                            $('#add-product-batch tr').remove('.product-add-row');
+                            $('#add-product-batch').empty();
                             $('#goods-table').bootstrapTable('refresh');
+                            $('#add-product-form').bootstrapValidator('resetForm', true);
                         }
                     },
                     error: function (e) {
