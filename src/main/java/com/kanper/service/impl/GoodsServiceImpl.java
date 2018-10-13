@@ -1,8 +1,10 @@
 package com.kanper.service.impl;
 
 import com.kanper.bean.GoodsBean;
+import com.kanper.bean.SupplierBean;
 import com.kanper.common.Response;
 import com.kanper.repository.IGoodsRepository;
+import com.kanper.repository.ISupplierRepository;
 import com.kanper.service.IGoodsService;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -17,10 +19,17 @@ import java.util.List;
 public class GoodsServiceImpl implements IGoodsService {
     @Autowired
     private IGoodsRepository goodsRepository;
+    @Autowired
+    private ISupplierRepository supplierRepository;
 
 
     @Override
     public List<GoodsBean> addBatch(List<GoodsBean> goodsBeanList) {
+        for (GoodsBean goodsBean : goodsBeanList) {
+            SupplierBean supplierBean = goodsBean.getSupplier();
+            supplierBean.setTransactionAmount(supplierBean.getTransactionAmount() + goodsBean.getNumber() * goodsBean.getBuyPrice());
+            supplierRepository.save(supplierBean);
+        }
         return goodsRepository.save(goodsBeanList);
     }
 
@@ -31,6 +40,11 @@ public class GoodsServiceImpl implements IGoodsService {
 
     @Override
     public GoodsBean updateGoods(GoodsBean goodsBean) {
+        GoodsBean oldBean = goodsRepository.getOne(goodsBean.getId());
+        double trans = (oldBean.getNumber() - goodsBean.getNumber()) * goodsBean.getBuyPrice();
+        SupplierBean supplierBean = goodsBean.getSupplier();
+        supplierBean.setTransactionAmount(supplierBean.getTransactionAmount() + trans);
+        supplierRepository.save(supplierBean);
         return goodsRepository.save(goodsBean);
     }
 
@@ -47,6 +61,10 @@ public class GoodsServiceImpl implements IGoodsService {
     @Override
     public Response<String> deleteGoods(Long goodsId) {
         try {
+            GoodsBean goodsBean = goodsRepository.getOne(goodsId);
+            SupplierBean supplierBean = goodsBean.getSupplier();
+            supplierBean.setTransactionAmount(supplierBean.getTransactionAmount() - goodsBean.getNumber() * goodsBean.getBuyPrice());
+            supplierRepository.save(supplierBean);
             goodsRepository.delete(goodsId);
             return Response.ok("删除成功");
         } catch (Exception e) {
