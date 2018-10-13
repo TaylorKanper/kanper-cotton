@@ -17,6 +17,5 @@ public interface ISoldGoodsRepository extends JpaRepository<SoldGoodBean, Long> 
 
     List<SoldGoodBean> findAllByBuyDateBetween(Date start, Date end);
 
-    @Query("from SoldGoodBean s where ")
-    List<SoldGoodBean> findAllByBuyDateBetween();
+//    List findAllByMonth();
 }
