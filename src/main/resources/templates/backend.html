@@ -34,7 +34,7 @@
         <nav class="templatemo-left-nav">
             <ul th:each="menu,menuStat:${session.menus}">
                 <li>
-                    <a th:classappend="${menuStat.index==3}?'active':''" th:href="${menu.href}">
+                    <a th:classappend="${menu.menuName=='后台管理'}?'active':''" th:href="${menu.href}">
                         <i th:class="${menu.icons}"></i>
                         <th:block th:text="${menu.menuName}">首页</th:block>
                     </a>
