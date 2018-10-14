@@ -111,40 +111,38 @@ let memberFn = function () {
                     $('#update-member-integral').val(row.integral);
 
                     $('#update-member').modal('show');
-                },
-                onLoadSuccess: function () {
-                    $("#member-table button.btn-success").on('click', function () {
-                        let memberId = $(this).attr('data-id');
-                        $('#member-soldGoods-table').bootstrapTable('refresh', {query: {memberId: memberId}});
-                        $('#member-soldGoods').modal('show');
-                    });
-                    $("#member-table button.btn-danger").on('click', function () {
-                        let memberId = $(this).attr('data-id');
-                        $.ajax({
-                            url: '/member/delMember',
-                            data: {memberId: memberId},
-                            method: 'post',
-                            success: function (data) {
-                                if (data.code == 0) {
-                                    $("#member-table").bootstrapTable('refresh');
-                                    toastr.success(data.msg);
-                                } else {
-                                    toastr.error(data.msg);
-                                }
-                            },
-                            error: function (e) {
-                                if (e.status == 401) {
-                                    toastr.error('你必须具备管理员权限才能进行操作');
-                                    return;
-                                }
-                                toastr.error(e.responseJSON.msg);
-                            }
-                        });
-                    });
                 }
             });
         },
         initEvent: function () {
+            $('#member-table').on('click', "button.btn-success", function () {
+                let memberId = $(this).attr('data-id');
+                $('#member-soldGoods-table').bootstrapTable('refresh', {query: {memberId: memberId}});
+                $('#member-soldGoods').modal('show');
+            });
+            $('#member-table').on('click', "button.btn-danger", function () {
+                let memberId = $(this).attr('data-id');
+                $.ajax({
+                    url: '/member/delMember',
+                    data: {memberId: memberId},
+                    method: 'post',
+                    success: function (data) {
+                        if (data.code == 0) {
+                            $("#member-table").bootstrapTable('refresh');
+                            toastr.success(data.msg);
+                        } else {
+                            toastr.error(data.msg);
+                        }
+                    },
+                    error: function (e) {
+                        if (e.status == 401) {
+                            toastr.error('你必须具备管理员权限才能进行操作');
+                            return;
+                        }
+                        toastr.error(e.responseJSON.msg);
+                    }
+                });
+            });
             $('#update-member-form').bootstrapValidator({
                 feedbackIcons: {
                     valid: 'glyphicon glyphicon-ok',
@@ -175,15 +173,16 @@ let memberFn = function () {
                     success: function (data) {
                         if (data.code == 0) {
                             $('#update-member').modal('hide');
-                            $('#update-member-form').bootstrapValidator('resetForm', true);
                             $('#member-table').bootstrapTable('refresh');
                             toastr.success(data.msg);
                         } else {
                             toastr.error(data.msg);
                         }
+                        $('#update-member-form').bootstrapValidator('resetForm', true);
 
                     },
                     error: function (e) {
+                        $('#update-member-form').bootstrapValidator('resetForm', true);
                         if (e.status == 401) {
                             toastr.error('你必须具备管理员权限才能进行操作');
                             return;
@@ -230,15 +229,16 @@ let memberFn = function () {
                     success: function (data) {
                         if (data.code == 0) {
                             $('#add-member').modal('hide');
-                            $('#add-member-form').bootstrapValidator('resetForm', true);
                             $('#member-table').bootstrapTable('refresh');
                             toastr.success(data.msg);
                         } else {
                             toastr.error(data.msg);
                         }
+                        $('#add-member-form').bootstrapValidator('resetForm', true);
 
                     },
                     error: function (e) {
+                        $('#add-member-form').bootstrapValidator('resetForm', true);
                         toastr.error(e.responseJSON.message);
                     }
                 });

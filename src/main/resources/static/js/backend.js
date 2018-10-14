@@ -60,27 +60,6 @@ let backendFn = function () {
                 onDblClickRow: function (row) {
                     $('#update-product-frame').modal('show');
                     backend.initForm(row);
-                },
-                onLoadSuccess: function () {
-                    $("#goods-table button.btn-danger").on('click', function () {
-                        let goodsId = $(this).attr('data-id');
-                        $.ajax({
-                            url: '/goods/deleteGoods',
-                            data: {goodsId: goodsId},
-                            method: 'post',
-                            success: function (data) {
-                                if (data.code == 0) {
-                                    $("#goods-table").bootstrapTable('refresh');
-                                    toastr.success(data.msg);
-                                } else {
-                                    toastr.error(data.msg);
-                                }
-                            },
-                            error: function (e) {
-                                toastr.error(e.responseJSON.msg);
-                            }
-                        });
-                    });
                 }
             });
         },
@@ -145,6 +124,25 @@ let backendFn = function () {
             });
         },
         initEvent: function () {
+            $("#goods-table").on('click', "button.btn-danger", function () {
+                let goodsId = $(this).attr('data-id');
+                $.ajax({
+                    url: '/goods/deleteGoods',
+                    data: {goodsId: goodsId},
+                    method: 'post',
+                    success: function (data) {
+                        if (data.code == 0) {
+                            $("#goods-table").bootstrapTable('refresh');
+                            toastr.success(data.msg);
+                        } else {
+                            toastr.error(data.msg);
+                        }
+                    },
+                    error: function (e) {
+                        toastr.error(e.responseJSON.msg);
+                    }
+                });
+            });
             $('#add-product-row').on('click', function () {
                 let row = "<tr>\n" +
                     "<td class=\"col-xs-1\"><select title=\"供应商\" name=\"supplier.id\" class=\"form-control supplier\" data-live-search=\"true\" data-size=\"5\"></select></td>\n" +
@@ -176,11 +174,12 @@ let backendFn = function () {
                             toastr.success(data.msg);
                             $('#add-product-batch').empty();
                             $('#goods-table').bootstrapTable('refresh');
-                            $('#add-product-form').bootstrapValidator('resetForm', true);
                         }
+                        $('#add-product-form').bootstrapValidator('resetForm', true);
                     },
                     error: function (e) {
                         toastr.error(e.responseJSON.msg);
+                        $('#add-product-form').bootstrapValidator('resetForm', true);
                     }
                 });
             });
@@ -221,6 +220,7 @@ let backendFn = function () {
                         toastr.success(data.msg);
                     },
                     error: function (e) {
+                        $('#add-supplier').bootstrapValidator('resetForm', true);
                         if (e.status == 401) {
                             toastr.error('你必须具备管理员权限才能进行操作');
                             return;
@@ -263,6 +263,7 @@ let backendFn = function () {
                         toastr.success(data.msg);
                     },
                     error: function (e) {
+                        $('#add-goods').bootstrapValidator('resetForm', true);
                         if (e.status == 401) {
                             toastr.error('你必须具备管理员权限才能进行操作');
                             return;
@@ -300,6 +301,7 @@ let backendFn = function () {
                         toastr.success(data.msg);
                     },
                     error: function (e) {
+                        $('#addSort').bootstrapValidator('resetForm', true);
                         if (e.status == 401) {
                             toastr.error('你必须具备管理员权限才能进行操作');
                             return;
@@ -420,9 +422,11 @@ let backendFn = function () {
                     success: function (data) {
                         $('#update-product-frame').modal('hide');
                         $('#goods-table').bootstrapTable('refresh');
+                        $('#update-product-form').bootstrapValidator("resetForm", true);
                         toastr.success(data.msg);
                     },
                     error: function (e) {
+                        $('#update-product-form').bootstrapValidator("resetForm", true);
                         if (e.status == 401) {
                             toastr.error('你必须具备管理员权限才能进行操作');
                             return;

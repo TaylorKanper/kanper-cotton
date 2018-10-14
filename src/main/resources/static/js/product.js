@@ -150,31 +150,29 @@ let productFn = function () {
                     $('#batch-buy-label').html("批量购买" + row.secondCategory.secondCategoryName);
                     $('#batch-buy-id').val(row.id);
                     $('#batch-buy-frame').modal('show');
-                },
-                onLoadSuccess: function () {
-                    $("#goods-table button.btn-primary").on('click', function () {
-                        let goodsId = $(this).attr('data-id');
-                        $.ajax({
-                            url: '/soldGoods/buyItem',
-                            data: {goodsId: goodsId},
-                            method: 'post',
-                            success: function (data) {
-                                if (data.code == 0) {
-                                    $("#goods-table").bootstrapTable('refresh');
-                                    toastr.success(data.msg);
-                                } else {
-                                    toastr.error(data.msg);
-                                }
-                            },
-                            error: function (e) {
-                                toastr.error(e.responseJSON.msg);
-                            }
-                        });
-                    });
                 }
             });
         },
         initEvent: function () {
+            $("#goods-table").on('click', 'button.btn-primary', function () {
+                let goodsId = $(this).attr('data-id');
+                $.ajax({
+                    url: '/soldGoods/buyItem',
+                    data: {goodsId: goodsId},
+                    method: 'post',
+                    success: function (data) {
+                        if (data.code == 0) {
+                            $("#goods-table").bootstrapTable('refresh');
+                            toastr.success(data.msg);
+                        } else {
+                            toastr.error(data.msg);
+                        }
+                    },
+                    error: function (e) {
+                        toastr.error(e.responseJSON.msg);
+                    }
+                });
+            });
             $('#shopping-cat-form').bootstrapValidator().on('success.form.bv', function (e) {
                 // Prevent form submission
                 e.preventDefault();
@@ -202,8 +200,10 @@ let productFn = function () {
                         } else {
                             toastr.error(data.msg);
                         }
+                        $('#shopping-cat-form').bootstrapValidator('resetForm', true);
                     },
                     error: function (e) {
+                        $('#shopping-cat-form').bootstrapValidator('resetForm', true);
                         toastr.error(e.responseJSON.msg);
                     }
                 });
@@ -255,6 +255,7 @@ let productFn = function () {
                         toastr.success(data.msg);
                     },
                     error: function (e) {
+                        $('#batch-buy-form').bootstrapValidator('resetForm', true);
                         toastr.error(e.responseJSON.msg);
                     }
                 });
