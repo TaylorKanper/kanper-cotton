@@ -50,8 +50,7 @@
                 <nav class="templatemo-top-nav col-lg-12 col-md-12">
                     <ul th:each="menu,menuStat:${session.menus}">
                         <li>
-                            <a th:classappend="${menu.menuName=='首页'}?'active':''" th:href="${menu.href}"><i
-                                    th:class="${menu.icons}"></i>
+                            <a th:classappend="${menu.menuName=='首页'}?'active':''" th:href="${menu.href}">
                                 <th:block th:text="${menu.menuName}"></th:block>
                             </a>
                         </li>
