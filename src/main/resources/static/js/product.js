@@ -201,6 +201,7 @@ let productFn = function () {
                             toastr.error(data.msg);
                         }
                         $('#shopping-cat-form').bootstrapValidator('resetForm', true);
+                        $('#total-price').html(0);
                     },
                     error: function (e) {
                         $('#shopping-cat-form').bootstrapValidator('resetForm', true);
