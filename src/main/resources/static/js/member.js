@@ -54,6 +54,7 @@ let memberFn = function () {
                 cache: false
             });
             $('#member-table').bootstrapTable({
+                uniqueId: 'id',
                 url: '/member/getAllMember',
                 classes: "table table-hover table-striped table-bordered templatemo-user-table",
                 columns: [{
@@ -89,7 +90,7 @@ let memberFn = function () {
                     field: 'function',
                     title: '操作',
                     formatter: function (value, row) {
-                        return "<button type='button' class='btn btn-xs btn-danger' data-id='" + row.id + "'>删除</button>";
+                        return "<button type='button' class='btn btn-xs btn-danger' data-id='" + row.id + "'>删除</button><button type='button' class='btn btn-xs btn-info' data-id='" + row.id + "'>修改积分</button>";
                     }
                 }],
                 search: true,
@@ -142,6 +143,19 @@ let memberFn = function () {
                         toastr.error(e.responseJSON.msg);
                     }
                 });
+            });
+            $('#member-table').on('click', "button.btn-info", function () {
+                let memberId = $(this).attr('data-id');
+                console.log(memberId);
+                let row = $('#member-table').bootstrapTable('getRowByUniqueId', memberId);
+                $('#updatemyModalLabel').html("修改会员==>" + row.memberName);
+                $('#update-member-name').val(row.memberName);
+                $('#update-member-id').val(row.id);
+                $('#update-member-phone').val(row.phone);
+                $('#update-member-birth').val(row.birthday);
+                $('#update-member-integral').val(row.integral);
+
+                $('#update-member').modal('show');
             });
             $('#update-member-form').bootstrapValidator({
                 feedbackIcons: {
